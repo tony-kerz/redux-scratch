@@ -5,6 +5,9 @@ import 'semantic-ui-css/components/dropdown'
 
 let dbg = debug('app:home')
 
+dbg('$.fn=%o', $.fn)
+dbg('$.fn.dropdown=%o', $.fn.dropdown)
+
 class Home extends Component {
   render() {
     return(
@@ -41,11 +44,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    dbg('cdm: jq=%o', $.fn)
     dbg('cdm: this.ref.skills=%o', this.refs.skills)
     const skills = $(this.refs.skills)
     dbg('cdm: skills=%o', skills)
-    const skillz = $('.ui.dropdown')
-    dbg('cdm: skillz=%o', skillz)
     skills.dropdown(
       {
         onChange: (value) => {

@@ -34,5 +34,6 @@ this application also illustrates use of the following redux-centric add-ons:
 1. visit http://localhost:8080 in browser
 
 ## notes
+* this was built using Node >= 5.x and NPM >= 3.x which resolved an issue with Semantic-UI around dependency handling
 * redux-devtools is hidden by default, but hit ctrl-H to bring it on
 * this was only tested in chrome `Version 46.x` so far, so YMMV in other browsers

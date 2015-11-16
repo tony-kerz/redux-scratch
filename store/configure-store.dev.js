@@ -1,10 +1,10 @@
 import debug from 'debug'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import {createStore, applyMiddleware, compose} from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
-import { createHistory } from 'history'
-import { reduxReactRouter } from 'redux-router'
-import createLogger from 'redux-logger'
+import {createHistory} from 'history'
+import {reduxReactRouter} from 'redux-router'
+import loggerMiddleware from 'redux-logger'
 import rootReducer from '../reducers'
 import routes from '../router/routes'
 import DevTools from '../dev-tools'
@@ -12,12 +12,22 @@ import DevTools from '../dev-tools'
 let dbg = debug('app:store:dev')
 
 const finalCreateStore = compose(
-  applyMiddleware(thunk, promiseMiddleware),
-  reduxReactRouter({ routes, createHistory }),
   applyMiddleware(
-    createLogger({
-      collapsed: true
-    }),
+    thunkMiddleware,
+    promiseMiddleware
+  ),
+  reduxReactRouter(
+    {
+      routes,
+      createHistory
+    }
+  ),
+  applyMiddleware(
+    loggerMiddleware(
+      {
+        collapsed: true
+      }
+    ),
   ),
   DevTools.instrument()
 )(createStore)

@@ -1,12 +1,11 @@
 import debug from 'debug'
 import { combineReducers } from 'redux'
-//import {routeReducer} from 'redux-simple-router'
 import { routerStateReducer } from 'redux-router'
-
-let dbg = debug('app:reducers')
+import skillReducer from './home/reducers'
+const dbg = debug('app:reducers')
 
 const reducers = {
-  //routing: routeReducer
+  skill: skillReducer,
   router: routerStateReducer
 }
 

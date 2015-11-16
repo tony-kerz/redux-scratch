@@ -13,7 +13,7 @@ let dbg = debug('app:layout')
     }
   }
 )
-class Layout extends Component {
+export default class Layout extends Component {
   render() {
     return(
       <div className='field'>
@@ -25,5 +25,3 @@ class Layout extends Component {
     )
   }
 }
-
-export default Layout

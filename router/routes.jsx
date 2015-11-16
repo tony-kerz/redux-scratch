@@ -1,11 +1,11 @@
 import React from 'react'
-import { Route, IndexRoute } from 'react-router'
+import {Route, IndexRoute} from 'react-router'
 import Layout from '../layout'
 import Home from '../home/home'
 import Stuff from '../stuff/stuff'
 import Nonsense from '../nonsense/nonsense'
 
-const routes = (
+export default (
   <Route path='/' component={Layout}>
     <IndexRoute component={Home}/>
     <Route path='home' component={Home} />
@@ -13,5 +13,3 @@ const routes = (
     <Route path='nonsense' component={Nonsense} />
   </Route>
 )
-
-export default routes

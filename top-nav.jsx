@@ -5,10 +5,10 @@ import {Link} from 'react-router'
 
 const dbg = debug('app:top-nav')
 
-class TopNav extends Component {
+export default class TopNav extends Component {
   render() {
     dbg('render: props=%o', this.props)
-    //const {path} = this.props.routing
+
     return (
       <div className='ui masthead large secondary menu'>
         <div className='ui container xyz'>
@@ -20,5 +20,3 @@ class TopNav extends Component {
     )
   }
 }
-
-export default TopNav

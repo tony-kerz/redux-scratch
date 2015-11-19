@@ -5,7 +5,7 @@ var DedupePlugin = require('webpack/lib/optimize/DedupePlugin')
 module.exports = {
   entry: {
     app: [
-      './index.jsx'
+      './app/index.jsx'
     ]
   },
   output: {
@@ -69,19 +69,9 @@ module.exports = {
       {
         test: /\.jpg$/,
         loader: 'url-loader?mimetype=image/jpg'
-      }//,
-      // {
-      //   test: require.resolve('semantic-ui-css/semantic'),
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: require.resolve('semantic-ui-css/components/dropdown'),
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: require.resolve('semantic-ui-css/components/dropdown'),
-      //   loader: 'imports?$=jquery'
-      // }
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
   }
 }

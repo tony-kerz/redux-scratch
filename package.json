@@ -12,7 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.7.0",
+    "bootstrap": "^3.3.5",
+    "bootstrap-datepicker": "^1.5.0",
     "debug": "^2.2.0",
+    "font-awesome": "^4.4.0",
     "history": "^1.13.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
@@ -27,7 +30,7 @@
     "redux-promise": "^0.6.0-alpha",
     "redux-router": "^1.0.0-beta4",
     "redux-thunk": "^1.0.0",
-    "semantic-ui-css": "^2.1.6"
+    "select2": "^4.0.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.33",

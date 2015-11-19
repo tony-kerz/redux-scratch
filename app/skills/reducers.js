@@ -22,7 +22,11 @@ const skillReducer = handleActions(
       }
     }
   },
-  {} // initial-state
+  {
+    loading: false,
+    name: null,
+    info: null
+  } // initial-state
 )
 
 // without handleActions:

@@ -1,0 +1,229 @@
+html, body { height: 100%; width: 100%; margin: 0; }
+
+body {
+  //padding-top: 40px;
+  //margin-top: 62px;
+  // margin-bottom = footer-height for sticky footer...
+  //margin-bottom: $footer-height;
+  padding-top: 60px; // use variable
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+
+  .page-title, .page-title-icon {
+    color: $dark-grey;
+    margin: 0;
+  }
+
+  span.logo {
+    display: block;
+    font-size: 14px;
+    margin-top: -6px;
+  }
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  /* margin: 0 auto -30px; */
+  /* Pad bottom by footer height */
+  padding-bottom: 60px;
+}
+
+#main {
+  padding-top: $padding-block;
+}
+
+#footer {
+  height: $footer-height;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-border-radius: 15px 15px 0 0;
+  -moz-border-radius: 15px 15px 0 0;
+  border-radius: 15px 15px 0 0;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
+  border: 1px solid #d4d4d4;
+  background-image: linear-gradient(to top, #ffffff, #f2f2f2);
+  background-repeat: repeat-x;
+  /*border-width: 5px;*/
+  padding-top:10px;
+  padding-bottom:0px;
+  padding-right:20px;
+  padding-left:20px;
+
+  .social {
+    float: right;
+    margin: 0;
+    list-style: none;
+
+    li {
+      float: left;
+      margin-left: 20px;
+
+      a, a:visited {
+        color: $social;
+        text-decoration: none;
+        font-size: 20px;
+        /*
+        .transition( 250ms ease-in-out );
+*/
+        &:hover {
+          color: $grey;
+        }
+      }
+    }
+  }
+}
+
+#credit {
+  float: left;
+}
+
+.jumbotron {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+// #flash {
+//   padding-top: 40px;
+// }
+//
+// #main {
+//   margin-top: -45px;
+// }
+
+
+// wrap > .container, .container-fluid {
+//     //padding-top: 65px;
+//     padding-bottom: 30px;
+// }
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+#navbar li a.active {
+  color: $active;
+}
+
+iframe {
+  border: 0;
+}
+
+@mixin color-scheme($background-color, $color: $white) {
+  color: $color;
+  background-color: $background-color;
+  fill: $background-color;
+}
+
+@mixin bg-striped($bg1, $bg2: transparent, $size: 3) {
+  $size: $size * 4px;
+  background-image: linear-gradient(135deg, $bg1 25%, $bg2 25%, $bg2 50%, $bg1 50%, $bg1 75%, $bg2 75%, $bg2);
+  background-size: $size $size;
+}
+
+body {
+  color: $text-grey;
+  -webkit-font-smoothing: antialiased;
+}
+
+h2, h3, h4 {
+  font-weight: 200;
+  letter-spacing: 0.05em;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid $text-grey;
+}
+
+.bg-grey {
+  background-color: $grey;
+}
+
+.bg-light-grey {
+  background-color: $light-grey;
+}
+
+.txt-grey {
+  color: $text-grey;
+}
+.txt-normal {
+  font-weight: normal;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-anchor-middle  {
+  text-anchor: middle;
+}
+
+.block {
+  display: block;
+}
+
+.pad-bottom {
+  margin-bottom: $padding-block;
+}
+
+.row {
+  margin-bottom: 45px;
+}
+
+.main-row {
+  padding-top: $padding-block;
+  padding-bottom: $padding-block;
+}
+
+.gutters {
+  padding-left: $content-well;
+  padding-right: $content-well;
+}
+
+.left-gutter {
+  padding-left: $content-well;
+}
+
+.right-gutter {
+  padding-right: $content-well;
+}
+
+// .fade {
+//   @include opacity(0);
+//   @include transition(all 200ms linear);
+// }
+
+.css-form {
+  input {
+    &.ng-dirty {
+      &.ng-invalid {
+        background-color: $input-invalid;
+      }
+      &.ng-valid {
+        background-color: $input-valid;
+      }
+    }
+  }
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}

@@ -17,14 +17,14 @@ module.exports = {
   },
   plugins: [
     new DedupePlugin(),
-    new ProvidePlugin({
-      //$: 'jquery',
-      'jQuery': 'jquery'//,
-      //'window.jQuery': 'jquery'
-    }),
+    new ProvidePlugin(
+      {
+      'jQuery': 'jquery'
+      }
+    ),
     new HtmlWebpackPlugin(
       {
-        template: 'index.html',
+        template: 'app/index.html',
         inject: 'body'
       }
     )

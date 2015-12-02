@@ -39,6 +39,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel',
         exclude: /node_modules/,
+        // babel 6.x, pending: https://phabricator.babeljs.io/T2645
         //query: {presets: ['es2015', 'stage-0', 'react']}
         query: {stage: 0}
       },

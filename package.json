@@ -11,6 +11,7 @@
     "build-dev": "webpack --config webpack/webpack.dev.config.js",
     "dev": "webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
     "build-prod": "webpack --config webpack/webpack.prod.config.js"
+    "doc": "babel-doctor"
   },
   "author": "",
   "license": "ISC",

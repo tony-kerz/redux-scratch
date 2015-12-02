@@ -1,6 +1,7 @@
 import debug from 'debug'
 import axios from 'axios'
 import _ from 'lodash'
+import urls from './urls'
 
 let dbg = debug('app:api:nyt')
 
@@ -22,7 +23,7 @@ export const getArticlesPromise = async (skill) => {
   try {
     dbg('get-articles: skill=%o', skill)
     const result = await axios.get(
-      'http://api.nytimes.com/svc/search/v2/articlesearch.json',
+      urls.articles,
       {
         params: {
           ['api-key']: '6d32ebff9e4a6290fa835ed126e5668a:18:73461083',

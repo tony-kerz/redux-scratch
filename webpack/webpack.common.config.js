@@ -5,7 +5,7 @@ var DedupePlugin = require('webpack/lib/optimize/DedupePlugin')
 module.exports = {
   entry: {
     app: [
-      './index.jsx'
+      './app/index.jsx'
     ]
   },
   output: {
@@ -17,14 +17,14 @@ module.exports = {
   },
   plugins: [
     new DedupePlugin(),
-    new ProvidePlugin({
-      //$: 'jquery',
-      'jQuery': 'jquery'//,
-      //'window.jQuery': 'jquery'
-    }),
+    new ProvidePlugin(
+      {
+      'jQuery': 'jquery'
+      }
+    ),
     new HtmlWebpackPlugin(
       {
-        template: 'index.html',
+        template: 'app/index.html',
         inject: 'body'
       }
     )
@@ -39,6 +39,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel',
         exclude: /node_modules/,
+        // babel 6.x, pending: https://phabricator.babeljs.io/T2645
         //query: {presets: ['es2015', 'stage-0', 'react']}
         query: {stage: 0}
       },
@@ -69,19 +70,9 @@ module.exports = {
       {
         test: /\.jpg$/,
         loader: 'url-loader?mimetype=image/jpg'
-      }//,
-      // {
-      //   test: require.resolve('semantic-ui-css/semantic'),
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: require.resolve('semantic-ui-css/components/dropdown'),
-      //   loader: 'imports?jQuery=jquery'
-      // },
-      // {
-      //   test: require.resolve('semantic-ui-css/components/dropdown'),
-      //   loader: 'imports?$=jquery'
-      // }
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
   }
 }

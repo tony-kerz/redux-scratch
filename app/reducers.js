@@ -1,7 +1,7 @@
 import debug from 'debug'
 import { combineReducers } from 'redux'
 import { routerStateReducer } from 'redux-router'
-import skillReducer from './home/reducers'
+import skillReducer from './skills/reducers'
 const dbg = debug('app:reducers')
 
 const reducers = {

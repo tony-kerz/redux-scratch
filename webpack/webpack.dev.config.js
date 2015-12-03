@@ -1,5 +1,6 @@
 var commonConfig = require('./webpack.common.config')
 var _ = require('lodash')
+var DefinePlugin = require('webpack/lib/DefinePlugin')
 
 config = _.extend(
   commonConfig,
@@ -12,7 +13,15 @@ config = _.extend(
       proxy: {
         '/api/*': 'http://localhost:3000'
       }
-    }
+    },
+    plugins: [
+      ...commonConfig.plugins,
+      new DefinePlugin(
+        {
+          __DEV__: true
+        }
+      )
+    ]
   }
 )
 

@@ -2,6 +2,7 @@ import debug from 'debug'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import TopNav from './top-nav'
+import Footer from './footer'
 
 let dbg = debug('app:layout')
 
@@ -16,11 +17,14 @@ let dbg = debug('app:layout')
 export default class Layout extends Component {
   render() {
     return(
-      <div className='field'>
-        <TopNav router={this.props.router}/>
-        <div className='ui main container'>
-          {this.props.children}
+      <div>
+        <div id='wrap'>
+          <TopNav router={this.props.router}/>
+          <div id='main' className='container'>
+            {this.props.children}
+          </div>
         </div>
+        <Footer/>
       </div>
     )
   }

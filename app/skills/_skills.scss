@@ -1,0 +1,9 @@
+.articles {
+  table {
+    td.date {
+      white-space: nowrap;
+    }
+  }
+  padding-left: $padding-block;
+  padding-right: $padding-block;
+}

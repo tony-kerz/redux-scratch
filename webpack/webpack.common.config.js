@@ -19,7 +19,7 @@ module.exports = {
     new DedupePlugin(),
     new ProvidePlugin(
       {
-      'jQuery': 'jquery'
+        jQuery: 'jquery'
       }
     ),
     new HtmlWebpackPlugin(

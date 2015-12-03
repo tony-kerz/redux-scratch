@@ -1,5 +1,10 @@
+const authBase = 'https://uaa.x.healthagen.com/oauth'
+
 let urls = {
-  articles: 'http://api.nytimes.com/svc/search/v2/articlesearch.json'
+  articles: 'http://api.nytimes.com/svc/search/v2/articlesearch.json',
+  oauthAuth: `${authBase}/authorize`,
+  oauthGrant: `${authBase}/token`,
+  apiBase: 'https://api.x.healthagen.com'
 }
 
 if (__DEV__) {

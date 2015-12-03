@@ -1,5 +1,5 @@
 import debug from 'debug'
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 

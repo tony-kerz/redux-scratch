@@ -23,7 +23,8 @@ const topics = [
   'User Experience'
 ]
 
-export default _.merge(resource,
+export default Object.assign({},
+  resource,
   {
     fake: () => {
       return {

@@ -2,13 +2,13 @@ import debug from 'debug'
 import jsonServer from 'json-server'
 import _ from 'lodash'
 import articles from './articles'
-//import patients from './patients'
+import patients from './patients'
 
 const dbg = debug('app:srv')
 
 const resources = {
-  articles
-  //patients
+  articles,
+  patients
 }
 
 // think: const app = express()
@@ -27,7 +27,11 @@ app.get((req, res, next) => {
   next()
 })
 
-app.use('/api', router)
+app.use(jsonServer.rewriter({
+  '/api/': '/'
+}))
+
+app.use(router)
 
 router.render = function (req, res) {
   let result = res.locals.data
@@ -36,7 +40,9 @@ router.render = function (req, res) {
     const index = getIndex(req.url)
     if (index) {
       dbg('index: %o', req.url)
-      result = resources[index].post(result)
+      if (index != 'db') {
+        result = resources[index].post(result)
+      }
     }
   }
   res.jsonp(result)

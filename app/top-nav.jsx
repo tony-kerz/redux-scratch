@@ -1,10 +1,24 @@
 import debug from 'debug'
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
+import * as actions from './session/actions'
 
 const dbg = debug('app:top-nav')
 
+@connect(
+  (state) => {
+    dbg('connect: state=%o', state)
+    return {
+      session: state.session
+    }
+  },
+  (dispatch) => {
+    dbg('connect: actions=%o', actions)
+    return bindActionCreators(actions, dispatch)
+  }
+)
 export default class TopNav extends Component {
   render() {
     dbg('render: props=%o', this.props)
@@ -32,6 +46,22 @@ export default class TopNav extends Component {
               <li>
                 <Link to='/gallery' activeClassName='active'>Gallery</Link>
               </li>
+            </ul>
+            <ul className='nav navbar-nav navbar-right'>
+              { this.props.session.token ? (
+                <li>
+                  <button onClick={this.props.logout} className='btn btn-default'>
+                    Logout
+                  </button>
+                </li>
+                ) : (
+                <li>
+                  <button onClick={this.props.login} className='btn btn-default'>
+                    Login
+                  </button>
+                </li>
+                )
+              }
             </ul>
           </div>
         </div>

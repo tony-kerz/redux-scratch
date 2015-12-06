@@ -17,12 +17,14 @@ const app = jsonServer.create()
 app.use(jsonServer.defaults())
 const router = jsonServer.router(getDb(resources))
 
-app.get((req, res, next) => {
-  dbg('get middleware')
-  const index = getIndex(req.url)
-  if (index) {
-    dbg('index: %o', req.url)
-    resources[index].pre(req, res)
+app.use((req, res, next) => {
+  dbg('get middleware: method=%o', req.method)
+  if (req.method == 'GET') {
+    const index = getIndex(req.url)
+    if (index) {
+      dbg('get: index=%o', index)
+      resources[index].pre(req, res)
+    }
   }
   next()
 })

@@ -57,7 +57,7 @@ const server = app.listen(
   }
 )
 
-function getIndex(url) {
+export function getIndex(url) {
   // getIndex('/dogs') -> 'dogs'
   // getIndex('/dogs?food=bacon') -> 'dogs'
   // getIndex('/dogs/:id') -> false

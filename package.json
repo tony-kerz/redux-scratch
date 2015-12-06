@@ -13,7 +13,8 @@
     "dev-mock": "export DEBUG=app:* && babel-node --presets es2015 mock-server & webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
     "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server",
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
-    "doc": "babel-doctor"
+    "doc": "babel-doctor",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "babel-cli": "^6.2.4",
     "babel-core": "^5.8.34",
+    "babel-jest": "^6.0.1",
     "babel-loader": "^5.4.0",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
@@ -52,6 +54,7 @@
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.1.0",
     "imports-loader": "^0.6.5",
+    "jest-cli": "^0.8.0",
     "json-server": "^0.8.3",
     "node-sass": "^3.4.2",
     "randexp": "^0.4.2",
@@ -66,5 +69,22 @@
   },
   "engines": {
     "node": ">=5.1.0"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": [
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/debug",
+      "<rootDir>/node_modules/lodash",
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
+    ]
   }
 }

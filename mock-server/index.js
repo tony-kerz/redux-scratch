@@ -39,7 +39,7 @@ router.render = function (req, res) {
   if (req.method == 'GET') {
     const index = getIndex(req.url)
     if (index) {
-      dbg('index: %o', req.url)
+      dbg('render: index=%o', index)
       if (index != 'db') {
         result = resources[index].post(result)
       }

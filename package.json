@@ -11,7 +11,8 @@
     "build-dev": "webpack --config webpack/webpack.dev.config.js",
     "dev": "webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
     "dev-mock": "export DEBUG=app:* && babel-node --presets es2015 mock-server & webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
-    "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server",
+    "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server --watch mock-server/db.json",
+    "generate-mock-data": "export DEBUG=app:* && babel-node --presets es2015 mock-server/generate",
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
     "doc": "babel-doctor",
     "test": "jest"

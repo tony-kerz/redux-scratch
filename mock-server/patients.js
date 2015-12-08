@@ -4,6 +4,8 @@ import RandExp from 'randexp'
 import resource from './resource'
 import {sharedPre} from './shared'
 const mrnRe = new RandExp(/\d{7}/)
+const phoneRe = new RandExp(/\(\d{3}\) \d{3}-\d{4}/)
+const zipRe = new RandExp(/\d{5}/)
 
 export default Object.assign({},
   resource,
@@ -18,11 +20,13 @@ export default Object.assign({},
         dateOfBirth: faker.date.past(),
         gender: _.sample(['M','F']),
         mrn: mrnRe.gen(),
-        phoneNumber: faker.phone.phoneNumber(),
+        //phoneNumber: faker.phone.phoneNumber(),
+        phoneNumber: phoneRe.gen(),
         address: faker.address.streetAddress(),
         city: faker.address.city(),
         state: faker.address.stateAbbr(),
-        zip: faker.address.zipCode(),
+        //zip: faker.address.zipCode(),
+        zip: zipRe.gen(),
         referals: []
       }
     },

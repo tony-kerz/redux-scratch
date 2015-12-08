@@ -38,6 +38,9 @@ export default class TopNav extends Component {
                 <Link to='/skills' activeClassName='active'>Skills</Link>
               </li>
               <li>
+                <Link to='/patients' activeClassName='active'>Patients</Link>
+              </li>
+              <li>
                 <Link to='/stuff' activeClassName='active'>Stuff</Link>
               </li>
               <li>

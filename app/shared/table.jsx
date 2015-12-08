@@ -22,7 +22,7 @@ export default class Table extends Component {
           {rows.map((row, i) => {
             return (
               <tr key={i}>
-                {metaKeys.map((metaKey, j) => {return <td className={metaKey} key={j}>{this.getValue(row, columnMeta[metaKey])}</td>})}
+                {metaKeys.map((metaKey, j) => {return <td className={_.kebabCase(metaKey)} key={j}>{this.getValue(row, metaKey, columnMeta[metaKey])}</td>})}
               </tr>
             )
           })}
@@ -31,13 +31,14 @@ export default class Table extends Component {
     )
   }
 
-  getValue(row, metaVal) {
+  getValue(row, metaKey, metaVal) {
     if (_.isFunction(metaVal)) {
-      return metaVal(row)
+      return metaVal(row, metaKey)
     } else if (_.isString(metaVal)) {
       return _.get(row, metaVal)
-    }
-    else {
+    } else if (metaVal === true) {
+      return row[metaKey]
+    } else {
       throw `unexpected metaVal=${metaVal}`
     }
   }

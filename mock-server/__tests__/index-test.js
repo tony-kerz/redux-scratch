@@ -20,7 +20,10 @@ describe('getIndex', () => {
   })
 
   it('works with id', () => {
-    const val = 'dogs'
-    expect(getIndex(`/${val}/:id`)).toEqual(false)
+    expect(getIndex('/dogs/:id')).toEqual(false)
+  })
+
+  it('excludes /db', () => {
+    expect(getIndex('/db')).toEqual(false)
   })
 })

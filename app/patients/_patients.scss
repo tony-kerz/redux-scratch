@@ -1,0 +1,9 @@
+.patients {
+  table {
+    td.birthdate, td.full-name, td.phone, td.address, td.city {
+      white-space: nowrap;
+    }
+  }
+  padding-left: $padding-block;
+  padding-right: $padding-block;
+}

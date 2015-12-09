@@ -1,5 +1,6 @@
 import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
+import jwtDecode from 'jwt-decode'
 import './platform'
 
 let dbg = debug('app:session')
@@ -15,7 +16,12 @@ export const loginPromise = async () => {
     dbg('login-promise: provider=%o', provider)
     const loginResult = await provider.login({force: false})
     dbg('login-result=%o', loginResult)
-    return loginResult
+    const encoded = loginResult.authResponse.access_token
+    const decoded = jwtDecode(encoded)
+    return {
+      encoded,
+      decoded
+    }
   }
   catch (caught) {
     dbg('login-promise: caught=%o', caught)

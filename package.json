@@ -28,6 +28,7 @@
     "hellojs": "^1.9.8",
     "history": "^1.13.1",
     "jquery": "^2.1.4",
+    "jwt-decode": "^1.4.0",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "react": "^0.14.3",

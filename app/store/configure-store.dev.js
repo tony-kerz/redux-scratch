@@ -2,11 +2,8 @@ import debug from 'debug'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
-import createHistory from 'history/lib/createHashHistory'
-import {reduxReactRouter} from 'redux-router'
 import loggerMiddleware from 'redux-logger'
 import rootReducer from '../reducers'
-import routes from '../router/routes'
 import DevTools from '../dev-tools'
 
 let dbg = debug('app:store:dev')
@@ -14,20 +11,12 @@ let dbg = debug('app:store:dev')
 const finalCreateStore = compose(
   applyMiddleware(
     thunkMiddleware,
-    promiseMiddleware
-  ),
-  reduxReactRouter(
-    {
-      routes,
-      createHistory
-    }
-  ),
-  applyMiddleware(
+    promiseMiddleware,
     loggerMiddleware(
       {
         collapsed: true
       }
-    ),
+    )
   ),
   DevTools.instrument()
 )(createStore)

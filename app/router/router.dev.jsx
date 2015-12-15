@@ -1,17 +1,21 @@
 import debug from 'debug'
 import React, {Component} from 'react'
-import {ReduxRouter} from 'redux-router'
+import {Router} from 'react-router'
 import DevTools from '../dev-tools'
+import routes from '../router/routes'
 
 const dbg = debug('app:router:dev')
 
-export default class Router extends Component {
+export default class extends Component {
   render() {
-    dbg('render')
+    dbg('render: props=%o', this.props)
+    const {store} = this.props
 
     return(
       <div>
-        <ReduxRouter/>
+        <Router>
+          {routes(store)}
+        </Router>
         <DevTools/>
       </div>
     )

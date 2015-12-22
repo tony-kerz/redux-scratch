@@ -9,7 +9,8 @@ export default handleActions(
     [actions.LOGIN_BEGIN]: (state, action) => {
       dbg('login-begin: state=%o, action=%o', state, action)
       return {
-        active: true
+        active: true,
+        target: action.payload
       }
     },
     [actions.LOGIN]: (state, action) => {
@@ -31,12 +32,14 @@ export default handleActions(
       return {
         ...state,
         active: false,
-        token: null
+        token: null,
+        target: null
       }
     }
   },
   {
     active: false,
-    token: null
+    token: null,
+    target: null
   }
 )

@@ -1,6 +1,7 @@
 import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
+import {pushPath} from 'redux-simple-router'
 import './platform'
 
 let dbg = debug('app:session')
@@ -42,4 +43,32 @@ export const logoutPromise = async () => {
     dbg('logout-promise: caught=%o', caught)
     throw caught
   }
+}
+
+export function onSessionChange(session, dispatch) {
+  dbg('on-session-change: session=%o', session)
+  if (session.token && session.target) {
+    dispatch(pushPath(session.target))
+  } else if (!session.token) {
+    // assuming logout
+    dispatch(pushPath('/'))
+  }
+}
+
+export function isAuthz(session, privs) {
+  const scope = _.get(session, 'token.decoded.scope')
+  dbg('is-authz: scope=%o, privs=%o', scope, privs)
+  if (_.isString(privs)) {
+    privs = [privs]
+  }
+  let authorized = false
+  _.forEach(privs, (priv) => {
+    if (_.includes(scope, priv))
+    {
+      dbg('require-auth: authorized via priv=%o', priv)
+      authorized = true
+      return false // to break from lodash for-each
+    }
+  })
+  return authorized
 }

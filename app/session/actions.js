@@ -5,19 +5,20 @@ import {loginPromise, logoutPromise} from './session'
 
 let dbg = debug('app:session:actions')
 
-export const login = () => {
-  dbg('login')
+export const login = (target) => {
+  dbg('login: target=%o', target)
   return (dispatch, getState) => {
-    dbg('login-thunk')
-    dispatch(loginBegin())
+    dbg('login-thunk: target=%o', target)
+    dispatch(loginBegin(target))
     dispatch(createAction(actions.LOGIN, loginPromise)())
   }
 }
 
 const loginBegin = createAction(
   actions.LOGIN_BEGIN,
-  () => {
-    dbg('login-begin')
+  (target) => {
+    dbg('login-begin: target=%o', target)
+    return target
   }
 )
 

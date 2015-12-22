@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import * as actions from './session/actions'
+import {isAuthz} from './session/session'
 
 const dbg = debug('app:top-nav')
 
@@ -22,6 +23,7 @@ const dbg = debug('app:top-nav')
 export default class TopNav extends Component {
   render() {
     dbg('render: props=%o', this.props)
+    const {session, logout, login} = this.props
 
     return (
       <nav className='navbar navbar-default navbar-fixed-top'>
@@ -32,34 +34,38 @@ export default class TopNav extends Component {
           <div id='navbar' className='collapse navbar-collapse'>
             <ul className='nav navbar-nav'>
               <li>
-                <Link to='/home' activeClassName='active'>Home</Link>
+                <Link to='home' activeClassName='active'>Home</Link>
               </li>
               <li>
-                <Link to='/skills' activeClassName='active'>Skills</Link>
+                <Link to='stuff' activeClassName='active'>Stuff</Link>
               </li>
               <li>
-                <Link to='/patients' activeClassName='active'>Patients</Link>
+                <Link to='nonsense' activeClassName='active'>Nonsense</Link>
               </li>
               <li>
-                <Link to='/stuff' activeClassName='active'>Stuff</Link>
+                <Link to='gallery' activeClassName='active'>Gallery</Link>
               </li>
+              { isAuthz(session, ['skills.read', 'admin', 'web-client-1.scope-1']) &&
               <li>
-                <Link to='/nonsense' activeClassName='active'>Nonsense</Link>
+                <Link to='skills' activeClassName='active'>Skills</Link>
               </li>
+              }
+              { isAuthz(session, ['skills.read', 'admin']) &&
               <li>
-                <Link to='/gallery' activeClassName='active'>Gallery</Link>
+                <Link to='patients' activeClassName='active'>Patients</Link>
               </li>
+              }
             </ul>
             <ul className='nav navbar-nav navbar-right'>
-              { this.props.session.token ? (
+              { session.token ? (
                 <li>
-                  <button onClick={this.props.logout} className='btn btn-default'>
+                  <button onClick={logout} className='btn btn-default'>
                     Logout
                   </button>
                 </li>
                 ) : (
                 <li>
-                  <button onClick={this.props.login} className='btn btn-default'>
+                  <button onClick={login} className='btn btn-default'>
                     Login
                   </button>
                 </li>

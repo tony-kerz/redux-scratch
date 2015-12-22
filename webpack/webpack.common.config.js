@@ -30,6 +30,9 @@ module.exports = {
     )
   ],
   module: {
+    preLoaders: [
+      {test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/}
+    ],
     loaders: [
       {
         test: /\.scss$/,
@@ -58,5 +61,11 @@ module.exports = {
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
+  },
+  eslint: {
+    test: /\.jsx?$/,
+    loaders: ['eslint'],
+    exclude: /node_modules/
+    //configFile: './.eslintrc'
   }
 }

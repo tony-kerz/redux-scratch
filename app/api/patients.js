@@ -1,6 +1,5 @@
 import debug from 'debug'
 import axios from 'axios'
-import _ from 'lodash'
 import urls from './urls'
 
 let dbg = debug('app:api:patients')

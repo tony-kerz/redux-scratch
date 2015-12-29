@@ -8,10 +8,15 @@ let dbg = debug('app:patients:actions')
 export const getPatients = (query) => {
   dbg('get-patients: query=%o', query)
   return (dispatch, getState) => {
-    dbg('get-patients-thunk: query=%o', query)
-    const leanQuery = _.omit(query, _.isEmpty)
-    dispatch(getPatientsBegin(leanQuery))
-    dispatch(createAction(actions.GET_PATIENTS, getPatientsPromise)(leanQuery))
+    const state = getState().patients
+    dbg('get-patients-thunk: query=%o, state=%o', query, state)
+    query = _.omit(query, (s) => { return _.isEmpty(_.trim(s)) })
+    query = Object.assign({}, query, {limit: state.limit})
+    dbg('query=%o', query)
+    dispatch(getPatientsBegin(query))
+    setTimeout(() => {
+      dispatch(createAction(actions.GET_PATIENTS, getPatientsPromise)(query))
+    }, 1000)
   }
 }
 

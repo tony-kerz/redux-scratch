@@ -11,6 +11,10 @@ const app = jsonServer.create()
 app.use(jsonServer.defaults())
 const router = jsonServer.router('mock-server/db.json')
 
+app.use(jsonServer.rewriter({
+  '/api/': '/'
+}))
+
 app.use((req, res, next) => {
   dbg('get middleware: method=%o', req.method)
   if (req.method == 'GET') {
@@ -22,10 +26,6 @@ app.use((req, res, next) => {
   }
   next()
 })
-
-app.use(jsonServer.rewriter({
-  '/api/': '/'
-}))
 
 app.use(router)
 

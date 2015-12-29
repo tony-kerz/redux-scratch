@@ -11,7 +11,6 @@ export function sharedPre(req, res) {
   replace(req.query, 'limit', '_limit')
   let sort = req.query.sort
   if (sort) {
-    const x = _.startsWith('abc', 'a')
     if (_.startsWith(sort, '+'))
     {
       sort = sort.substring(1)

@@ -1,4 +1,9 @@
-html, body { height: 100%; width: 100%; margin: 0; }
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  min-height: 600px;
+}
 
 body {
   //padding-top: 40px;
@@ -23,12 +28,22 @@ body {
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
-  height: auto !important;
+  //height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
   /* margin: 0 auto -30px; */
   /* Pad bottom by footer height */
   padding-bottom: 60px;
+}
+
+.greedy-height {
+  height: 100%;
+}
+
+// can't seem to find a spot in jsx to specify className
+// for this first child of root, so work-around is this child selector
+#root > div {
+  height: 100%;
 }
 
 #main {

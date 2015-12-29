@@ -10,6 +10,7 @@ import Patients from '../patients/patients'
 import Stuff from '../stuff/stuff'
 import Nonsense from '../nonsense/nonsense'
 import Gallery from '../gallery/gallery'
+import Scroll from '../scroll/scroll'
 
 const dbg = debug('app:routes')
 
@@ -60,12 +61,13 @@ export default function(store) {
   return (
     <Route path='/' component={Layout}>
       <IndexRoute component={Home}/>
-      <Route path='home' component={Home} />
-      <Route path='skills' component={Skills} />
-      <Route path='patients' component={Patients} />
+      <Route path='home' component={Home}/>
+      <Route path='skills' component={Skills}/>
+      <Route path='patients' component={Patients}/>
       <Route path='stuff' component={Stuff} onEnter={requireAuth('web-client-1.scope-1')}/>
-      <Route path='nonsense' component={Nonsense} onEnter={requireAuth('level-2')}/>
-      <Route path='gallery' component={Gallery} onEnter={requireAuth('level-3')}/>
+      <Route path='nonsense' component={Nonsense}/>
+      <Route path='gallery' component={Gallery} onEnter={requireAuth('level-2')}/>
+      <Route path='scroll' component={Scroll}/>
     </Route>
   )
 }

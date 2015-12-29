@@ -8,10 +8,10 @@ let dbg = debug('app:layout')
 export default class Layout extends Component {
   render() {
     return(
-      <div>
-        <div id='wrap'>
+      <div className='layout greedy-height'>
+        <div id='wrap' className='wrap greedy-height'>
           <TopNav/>
-          <div id='main' className='container'>
+          <div id='main' className='container greedy-height'>
             {this.props.children}
           </div>
         </div>

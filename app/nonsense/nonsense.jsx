@@ -1,7 +1,5 @@
 import debug from 'debug'
 import React, {Component} from 'react'
-import $ from 'jquery'
-import 'bootstrap/js/collapse'
 
 const dbg = debug('app:nonsense')
 
@@ -60,9 +58,5 @@ export default class Nonsense extends Component {
         </div>
       </div>
     )
-  }
-
-  componentDidMount() {
-    $(this.refs.anAccordion).collapse()
   }
 }

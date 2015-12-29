@@ -26,8 +26,7 @@ export default Object.assign({},
         city: faker.address.city(),
         state: faker.address.stateAbbr(),
         //zip: faker.address.zipCode(),
-        zip: zipRe.gen(),
-        referals: []
+        zip: zipRe.gen()
       }
     },
 

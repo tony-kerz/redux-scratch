@@ -14,7 +14,10 @@ export const getPatientsPromise = async (params) => {
       }
     )
     dbg('get-patients: result=%o', result)
-    return result.data
+    return {
+      data: result.data,
+      total: parseInt(result.headers['x-total-count'])
+    }
   }
   catch (caught) {
     dbg('get-patients: caught=%o', caught)

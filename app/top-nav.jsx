@@ -50,11 +50,14 @@ export default class TopNav extends Component {
                 <Link to='skills' activeClassName='active'>Skills</Link>
               </li>
               }
-              { isAuthz(session, ['skills.read', 'admin']) &&
+              {/* isAuthz(session, ['skills.read', 'admin']) && */}
               <li>
                 <Link to='patients' activeClassName='active'>Patients</Link>
               </li>
-              }
+              {/* */}
+              <li>
+                <Link to='scroll' activeClassName='active'>Scroll</Link>
+              </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               { session.token ? (

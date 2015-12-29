@@ -1,0 +1,12 @@
+.scroll {
+  & > .panel-body {
+    height: calc(100% - 50px)
+  }
+  .scroll-panel {
+    height: calc(100% - 265px);
+    .panel-body {
+      overflow-y: scroll;
+      position: relative;
+    }
+  }
+}

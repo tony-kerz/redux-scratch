@@ -37,7 +37,7 @@ const patientColMeta = {
 export default class Patients extends Component {
   render() {
     dbg('render: props=%o', this.props)
-    const {result} = this.props.patients
+    const {data} = this.props.patients
 
     return(
       <div className='panel panel-default'>
@@ -53,9 +53,9 @@ export default class Patients extends Component {
               <PatientQueryForm getPatients={this.props.getPatients}/>
             </div>
           </div>
-          { result && (
+          { data && (
             <div className='panel panel-default patients'>
-              <Table className='table table-hover' columnMeta={patientColMeta} rows={result}/>
+              <Table className='table table-hover' columnMeta={patientColMeta} rows={data}/>
             </div>
           )}
         </div>

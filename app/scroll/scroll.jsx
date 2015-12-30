@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import Loader from 'react-loader'
 import Waypoint from 'react-waypoint'
 import * as actions from '../patients/actions'
 import PatientQueryForm from '../patients/patient-query-form'
@@ -43,7 +42,7 @@ export default class Scroll extends Component {
             </div>
           </div>
           <div className='panel panel-default scroll-panel'>
-            <div className='panel-body greedy-height' ref='scrollable'>
+            <div className='panel-body greedy-height'>
               { data && (
                 <div>
                   {this.renderItems(data)}
@@ -55,8 +54,12 @@ export default class Scroll extends Component {
                   />
                 </div>
               )}
-              <Loader loaded={!active}/>
             </div>
+            { active && (
+              <div className='overlay'>
+                <i className='fa fa-3x fa-circle-o-notch fa-spin'></i>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -99,15 +102,5 @@ export default class Scroll extends Component {
 
   onLeave() {
     dbg('on-leave')
-  }
-
-  componentWillUpdate() {
-    const s = ReactDOM.findDOMNode(this.refs.scrollable)
-    dbg('cwu: s-top=%o, s-height=%o, s-offset=%o', s.scrollTop, s.scrollHeight, s.offsetHeight)
-  }
-
-  componentDidUpdate() {
-    const s = ReactDOM.findDOMNode(this.refs.scrollable)
-    dbg('cdu: s-top=%o, s-height=%o, s-offset=%o', s.scrollTop, s.scrollHeight, s.offsetHeight)
   }
 }

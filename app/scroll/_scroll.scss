@@ -4,9 +4,21 @@
   }
   .scroll-panel {
     height: calc(100% - 265px);
+    position: relative;
     .panel-body {
       overflow-y: scroll;
       position: relative;
+    }
+    .overlay {
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

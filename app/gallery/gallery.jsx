@@ -14,9 +14,9 @@ export default class Gallery extends Component {
         </div>
         <div className='panel-body'>
           <form>
-            <div className="form-group">
-              <label for="date-1">date</label>
-              <input className="form-control" id="date-1" placeholder="date" data-provide="datepicker"/>
+            <div className='form-group'>
+              <label for='date-1'>date</label>
+              <input className='form-control' id='date-1' placeholder='date' data-provide='datepicker'/>
             </div>
           </form>
         </div>

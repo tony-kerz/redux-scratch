@@ -1,7 +1,4 @@
-import debug from 'debug'
 import React, {Component} from 'react'
-
-const dbg = debug('app:nonsense')
 
 export default class Nonsense extends Component {
   render() {

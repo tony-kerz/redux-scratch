@@ -1,4 +1,3 @@
-import debug from 'debug'
 import React, {Component} from 'react'
 
 export default class Loader extends Component {

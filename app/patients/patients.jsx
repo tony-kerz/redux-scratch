@@ -1,7 +1,6 @@
 import debug from 'debug'
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
-import $ from 'jquery'
 import {connect} from 'react-redux'
 import * as actions from './actions'
 import Table from '../shared/table'

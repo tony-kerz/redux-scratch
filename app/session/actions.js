@@ -7,7 +7,7 @@ let dbg = debug('app:session:actions')
 
 export const login = (target) => {
   dbg('login: target=%o', target)
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dbg('login-thunk: target=%o', target)
     dispatch(loginBegin(target))
     dispatch(createAction(actions.LOGIN, loginPromise)())

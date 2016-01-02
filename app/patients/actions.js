@@ -1,5 +1,6 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
+import _ from 'lodash'
 import actions from './constants'
 import {getPatientsPromise} from '../api/patients'
 

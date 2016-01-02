@@ -8,7 +8,7 @@ let dbg = debug('app:home:actions')
 export const setSkill = (skill) => {
   dbg('set-skill: skill=%o', skill)
   // thunk-middleware will process this function (and pass dispatch/getState args)
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dbg('set-skill-thunk: skill=%o', skill)
     // dispatch 'begin' action to allow for things like activating a 'waiting' spinner
     dispatch(setSkillBegin(skill))

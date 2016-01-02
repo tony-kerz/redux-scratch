@@ -2,9 +2,18 @@ import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
 import {pushPath} from 'redux-simple-router'
+import _ from 'lodash'
 import './platform'
+import {login} from './actions'
+import observe from '../observe'
+import toastr from '../shared/toastr'
 
 let dbg = debug('app:session')
+
+const DEFAULTS = {
+  logoutPath: '/',
+  notAuthzPath: '/'
+}
 
 Hello.init({
   platform: 'web-client-1'
@@ -45,14 +54,17 @@ export const logoutPromise = async () => {
   }
 }
 
-export function onSessionChange(session, dispatch) {
-  dbg('on-session-change: session=%o', session)
-  if (session.token && session.target) {
-    dispatch(pushPath(session.target))
-  } else if (!session.token) {
-    // assuming logout
-    dispatch(pushPath('/'))
+function onSessionChange(opts) {
+  return (session, initial, dispatch) => {
+    dbg('on-session-change: session=%o, initial=%o', session, initial)
+    if (session.token && session.target) {
+      dispatch(pushPath(session.target))
+    } else if (!initial && !session.active && !session.token) {
+      // assuming logout
+      dispatch(pushPath(opts.logoutPath))
+      dbg('logging out')
       toastr.info('logged out')
+    }
   }
 }
 
@@ -73,4 +85,46 @@ export function isAuthz(session, privs) {
   })
   return authorized
 }
+
+export function generateOnEnterHandler(store, opts) {
+  const _opts = _.defaults({}, opts, DEFAULTS)
+
+  observe(
+    store,
+    (state) => { return state.session },
+    onSessionChange(_opts)
+  )
+
+  return (privs) => {
+    if (_.isString(privs)) {
+      privs = [privs]
+    }
+
+    return (nextState, replaceState) => {
+      const {session, routing} = store.getState()
+      let current = routing.path
+      const target = nextState.location.pathname
+      if (current == target) {
+        // assuming this is due to a 'deep-link', so set current = opts.unAuthzPath
+        // which will drop there in case of insufficient auth
+        current = opts.unAuthzPath
+      }
+      dbg('require-auth: current=%o, target=%o, privs=%o, session=%o', current, target, privs, session)
+      if (session.token) {
+        const authorized = isAuthz(session, privs)
+        if (!authorized) {
+          dbg('require-auth: authenticated but not authorized (403): privs=%o', privs)
           toastr.info(`not authorized for target [${target}]`)
+          // disallow transition
+          replaceState(null, current)
+        }
+      }
+      else {
+        dbg('require-auth: login required')
+        // disallow transition here, successful login should retry transition...
+        replaceState(null, current)
+        store.dispatch(login(target))
+      }
+    }
+  }
+}

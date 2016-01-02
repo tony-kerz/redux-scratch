@@ -52,6 +52,7 @@ export function onSessionChange(session, dispatch) {
   } else if (!session.token) {
     // assuming logout
     dispatch(pushPath('/'))
+      toastr.info('logged out')
   }
 }
 
@@ -72,3 +73,4 @@ export function isAuthz(session, privs) {
   })
   return authorized
 }
+          toastr.info(`not authorized for target [${target}]`)

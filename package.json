@@ -45,7 +45,8 @@
     "redux-promise": "^0.5.0",
     "redux-simple-router": "^1.0.1",
     "redux-thunk": "^1.0.2",
-    "select2": "^4.0.1"
+    "select2": "^4.0.1",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.2.4",

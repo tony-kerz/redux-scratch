@@ -16,7 +16,7 @@
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
     "doc": "babel-doctor",
     "test": "jest",
-    "lint": "eslint app"
+    "lint": "eslint --ext .js --ext .jsx app"
   },
   "author": "",
   "license": "ISC",

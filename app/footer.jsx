@@ -1,5 +1,5 @@
+import React, {Component} from 'react'
 import debug from 'debug'
-import React, {Component, PropTypes} from 'react'
 
 const dbg = debug('app:footer')
 

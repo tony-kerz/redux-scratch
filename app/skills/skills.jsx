@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux'
 import $ from 'jquery'
 import {connect} from 'react-redux'
 import * as actions from './actions'
-import Loader from '../shared/loader'
 import Table from '../shared/table'
 import moment from 'moment'
 
@@ -32,7 +31,7 @@ const articleColMeta = {
 export default class Skills extends Component {
   render() {
     dbg('render: props=%o', this.props)
-    const {name, loading, info} = this.props.skill
+    const {loading, info} = this.props.skill
 
     return(
       <div className='panel panel-default'>

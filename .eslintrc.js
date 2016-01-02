@@ -11,7 +11,8 @@ module.exports = {
     node: true
   },
   ecmaFeatures: {
-    modules: true
+    modules: true,
+    jsx: true
   },
   plugins: [
     'react'
@@ -23,7 +24,7 @@ module.exports = {
     'eol-last': [0],
     'no-mixed-requires': [0],
     'no-underscore-dangle': [0],
-    'jsx-quotes': 1,
+    'jsx-quotes': [2, 'prefer-single'],
     'react/jsx-no-undef': 1,
     'react/jsx-uses-react': 1,
     'react/jsx-uses-vars': 1

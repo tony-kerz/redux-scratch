@@ -1,7 +1,5 @@
-import debug from 'debug'
 import React from 'react'
 import {Route, IndexRoute} from 'react-router'
-import {pushPath} from 'redux-simple-router'
 import Layout from '../layout'
 import Home from '../home/home'
 import Skills from '../skills/skills'
@@ -11,8 +9,6 @@ import Nonsense from '../nonsense/nonsense'
 import Gallery from '../gallery/gallery'
 import Scroll from '../scroll/scroll'
 import {generateOnEnterHandler} from '../session/session'
-
-const dbg = debug('app:routes')
 
 export default function(store) {
 

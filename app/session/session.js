@@ -1,5 +1,5 @@
 import debug from 'debug'
-import Hello from 'hellojs/dist/hello'
+import hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
 import {pushPath} from 'redux-simple-router'
 import _ from 'lodash'
@@ -15,14 +15,63 @@ const DEFAULTS = {
   notAuthzPath: '/'
 }
 
-Hello.init({
+hello.utils.store = (() => {
+  function get() {
+    let json = {}
+    try {
+      json = JSON.parse(sessionStorage.getItem('hello')) || {}
+    }
+    catch (e) {
+      dbg('store.get: caught e=%o', e)
+    }
+    return json
+  }
+
+  function set(json) {
+    dbg('session.set: pre: local=%o, session=%o', localStorage.getItem('hello'), sessionStorage.getItem('hello'))
+    sessionStorage.setItem('hello', JSON.stringify(json))
+    dbg('session.set: post: local=%o, session=%o', localStorage.getItem('hello'), sessionStorage.getItem('hello'))
+  }
+
+  return (name, value) => {
+    //dbg('store: name=%o, value=%o, local=%o', name, value, localStorage.getItem('hello'))
+    if (localStorage.getItem('hello')) {
+      throw `oops, local-storage is populated=${localStorage.getItem('hello')}`
+    }
+
+    let json = get()
+
+    if (name && value === undefined) {
+      return json[name] || null
+    }
+    else if (name && value === null) {
+      try {
+        delete json[name]
+      }
+      catch (e) {
+        json[name] = null
+      }
+    }
+    else if (name) {
+      json[name] = value
+    }
+    else {
+      return json
+    }
+
+    set(json)
+    return json || null
+  }
+})()
+
+hello.init({
   platform: 'web-client-1'
 })
 
 export const loginPromise = async () => {
   try {
     dbg('login-promise')
-    const provider = Hello('platform')
+    const provider = hello('platform')
     dbg('login-promise: provider=%o', provider)
     const loginResult = await provider.login({force: false})
     dbg('login-result=%o', loginResult)
@@ -42,7 +91,7 @@ export const loginPromise = async () => {
 export const logoutPromise = async () => {
   try {
     dbg('logout-promise')
-    const provider = Hello('platform')
+    const provider = hello('platform')
     dbg('logout-promise: provider=%o', provider)
     const logoutResult = await provider.logout({force: true})
     dbg('logout-result=%o', logoutResult)

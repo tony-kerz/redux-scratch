@@ -14,7 +14,7 @@ const init = (hello) => {
         grant: urls.oauthGrant
       },
       login: (p) => {
-        dbg('login: p=%o', p)
+        dbg('login: p=%o, local=%o', p, localStorage.hello)
       },
       refresh: true,
       scope: {

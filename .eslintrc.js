@@ -17,6 +17,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    'indent': [2, 2],
     'prefer-const': 2,
     'no-unused-vars': 2,
     quotes: [2, 'single'],

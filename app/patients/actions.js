@@ -4,7 +4,7 @@ import _ from 'lodash'
 import actions from './constants'
 import {getPatientsPromise} from '../api/patients'
 
-let dbg = debug('app:patients:actions')
+const dbg = debug('app:patients:actions')
 
 export const getPatients = (query) => {
   dbg('get-patients: query=%o', query)

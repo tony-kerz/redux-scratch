@@ -8,7 +8,7 @@ export default function(store, select, onChange) {
   let currentState
 
   function handleChange() {
-    let nextState = select(store.getState())
+    const nextState = select(store.getState())
     //dbg('handle-change: current=%o, next=%o', currentState, nextState)
     if (nextState !== currentState) {
       dbg('handle-change: next=%o != current=%o', nextState, currentState)
@@ -18,7 +18,7 @@ export default function(store, select, onChange) {
     }
   }
 
-  let unsubscribe = store.subscribe(handleChange)
+  const unsubscribe = store.subscribe(handleChange)
   handleChange()
   return unsubscribe
 }

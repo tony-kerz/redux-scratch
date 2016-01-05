@@ -2,7 +2,7 @@ import debug from 'debug'
 import urls from '../api/urls'
 import Hello from 'hellojs/dist/hello'
 
-let dbg = debug('app:session:platform')
+const dbg = debug('app:session:platform')
 
 const init = (hello) => {
   hello.init({

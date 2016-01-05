@@ -8,7 +8,7 @@ import {login} from './actions'
 import observe from '../observe'
 import toastr from '../shared/toastr'
 
-let dbg = debug('app:session')
+const dbg = debug('app:session')
 
 const DEFAULTS = {
   logoutPath: '/',

@@ -2,7 +2,7 @@ import debug from 'debug'
 import axios from 'axios'
 import urls from './urls'
 
-let dbg = debug('app:api:patients')
+const dbg = debug('app:api:patients')
 
 export const getPatientsPromise = async (params) => {
   try {

@@ -6,7 +6,7 @@ import loggerMiddleware from 'redux-logger'
 import rootReducer from '../reducers'
 import DevTools from '../dev-tools'
 
-let dbg = debug('app:store:dev')
+const dbg = debug('app:store:dev')
 
 const finalCreateStore = compose(
   applyMiddleware(

@@ -9,7 +9,7 @@ import rootReducer from '../reducers'
 import routes from '../router/routes'
 //import DevTools from '../dev-tools'
 
-let dbg = debug('app:store:prod')
+const dbg = debug('app:store:prod')
 
 const finalCreateStore = compose(
   applyMiddleware(

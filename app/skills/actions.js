@@ -3,7 +3,7 @@ import {createAction} from 'redux-actions'
 import actions from './constants'
 import {getArticlesPromise} from '../api/new-york-times'
 
-let dbg = debug('app:home:actions')
+const dbg = debug('app:home:actions')
 
 export const setSkill = (skill) => {
   dbg('set-skill: skill=%o', skill)

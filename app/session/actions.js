@@ -4,7 +4,7 @@ import actions from './constants'
 import {loginPromise, logoutPromise} from './session'
 import _ from 'lodash'
 
-let dbg = debug('app:session:actions')
+const dbg = debug('app:session:actions')
 
 export const login = (target) => {
   dbg('login: target=%o', target)

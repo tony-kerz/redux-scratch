@@ -3,28 +3,49 @@ import {createAction} from 'redux-actions'
 import _ from 'lodash'
 import actions from './constants'
 import {getPatientsPromise} from '../api/patients'
+import ApiHelper from '../api/helper'
 
 const dbg = debug('app:patients:actions')
 
-export const getPatients = (query) => {
-  dbg('get-patients: query=%o', query)
+function getPatients(modifier, dispatch, state) {
+  const {patients} = state
+  dbg('get-patients: modifier=%o, patients=%o', modifier, patients)
+
+  const query = {
+    ...(modifier.filter || patients.filter),
+    ...ApiHelper.getSortParam(modifier.sort || patients.sort),
+    limit: patients.limit,
+    offset: _.isNumber(modifier.offset) ? modifier.offset : patients.offset
+  }
+
+  dispatch(setActive())
+  setTimeout(() => {
+    dispatch(createAction(actions.GET_PATIENTS, getPatientsPromise)(query, modifier))
+  }, 1000)
+}
+
+const setActive = createAction(actions.SET_ACTIVE)
+
+export const filterPatients = (filter) => {
+  dbg('filter-patients: filter=%o', filter)
   return (dispatch, getState) => {
-    const state = getState().patients
-    dbg('get-patients-thunk: query=%o, state=%o', query, state)
-    query = _.omit(query, (s) => { return _.isEmpty(_.trim(s)) })
-    query = Object.assign({}, query, {limit: state.limit})
-    dbg('query=%o', query)
-    dispatch(getPatientsBegin(query))
-    setTimeout(() => {
-      dispatch(createAction(actions.GET_PATIENTS, getPatientsPromise)(query))
-    }, 1000)
+    filter = _.omit(filter, (s) => { return _.isEmpty(_.trim(s)) })
+    getPatients({filter: filter}, dispatch, getState())
   }
 }
 
-const getPatientsBegin = createAction(
-  actions.GET_PATIENTS_BEGIN,
-  (query) => {
-    dbg('get-patients-begin: query=%o', query)
-    return query
+export const sortPatients = (field, isAscending) => {
+  dbg('sort-patients: field=%o, is-ascending=%o', field, isAscending)
+  return (dispatch, getState) => {
+    getPatients({sort: {field, isAscending}}, dispatch, getState())
   }
-)
+}
+
+export const pagePatients = (index) => {
+  dbg('page-patients: index=%o', index)
+  return (dispatch, getState) => {
+    const state = getState()
+    const {limit} = state.patients
+    getPatients({offset: index * limit}, dispatch, state)
+  }
+}

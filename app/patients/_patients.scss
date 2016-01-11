@@ -1,6 +1,9 @@
 .patients {
   table {
-    td.birthdate, td.full-name, td.phone, td.address, td.city {
+    th {
+      white-space: nowrap;
+    }
+    td.birthdate, td.full-name, td.phone, td.address, td.city, td.state {
       white-space: nowrap;
     }
   }

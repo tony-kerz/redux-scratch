@@ -97,7 +97,7 @@ export default class Scroll extends Component {
     else {
       dbg('on-enter: offset >= total, no more data to fetch...')
     }
-  }
+  };
 
   onLeave() {
     dbg('on-leave')

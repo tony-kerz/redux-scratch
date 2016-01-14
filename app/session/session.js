@@ -12,7 +12,7 @@ const dbg = debug('app:session')
 
 const DEFAULTS = {
   logoutPath: '/',
-  notAuthzPath: '/'
+  unAuthzPath: '/'
 }
 
 Hello.init({
@@ -87,12 +87,15 @@ export function isAuthz(session, privs) {
 }
 
 export function generateOnEnterHandler(store, opts) {
-  const _opts = _.defaults({}, opts, DEFAULTS)
+  opts = {
+    ...opts,
+    DEFAULTS
+  }
 
   observe(
     store,
     (state) => { return state.session },
-    onSessionChange(_opts)
+    onSessionChange(opts)
   )
 
   return (privs) => {

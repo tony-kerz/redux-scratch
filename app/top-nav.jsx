@@ -58,6 +58,9 @@ export default class TopNav extends Component {
               <li>
                 <Link to='scroll' activeClassName='active'>Scroll</Link>
               </li>
+              <li>
+                <Link to='griddle' activeClassName='active'>Griddle</Link>
+              </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               { session.token ? (

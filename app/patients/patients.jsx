@@ -49,7 +49,7 @@ export default class Patients extends Component {
               <h3 className='panel-title'>Patient Search</h3>
             </div>
             <div className='panel-body'>
-              <PatientQueryForm getPatients={this.props.getPatients}/>
+              <PatientQueryForm filterPatients={this.props.filterPatients}/>
             </div>
           </div>
           { data && (

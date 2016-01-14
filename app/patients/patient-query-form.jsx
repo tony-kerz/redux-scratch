@@ -32,11 +32,11 @@ export default class PatientQueryForm extends Component {
       handleSubmit,
       resetForm,
       submitting,
-      getPatients
+      filterPatients
     } = this.props;
 
     return(
-      <form onSubmit={handleSubmit(getPatients)}>
+      <form onSubmit={handleSubmit(filterPatients)}>
         <div className='form-group'>
           <label htmlFor='first-name'>first name</label>
           <input type='text' className='form-control' id='first-name' placeholder='first name' {...firstName}/>

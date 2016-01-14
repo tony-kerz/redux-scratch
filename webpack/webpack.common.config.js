@@ -13,7 +13,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.coffee'],
+    alias: {
+      underscore: 'lodash'
+    }
   },
   plugins: [
     new DedupePlugin(),

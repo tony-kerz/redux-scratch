@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Waypoint from 'react-waypoint'
-import * as actions from '../patients/actions'
+import actions from '../patients/actions'
 import PatientQueryForm from '../patients/patient-query-form'
 import moment from 'moment'
 
@@ -37,7 +37,7 @@ export default class Scroll extends Component {
               <h3 className='panel-title'>Patient Search</h3>
             </div>
             <div className='panel-body'>
-              <PatientQueryForm getPatients={this.props.getPatients}/>
+              <PatientQueryForm filterPatients={this.props.filter}/>
             </div>
           </div>
           <div className='panel panel-default scroll-panel'>
@@ -54,7 +54,7 @@ export default class Scroll extends Component {
                 </div>
               )}
             </div>
-            { active && (
+            { (active > 0) && (
               <div className='overlay'>
                 <i className='fa fa-3x fa-circle-o-notch fa-spin'></i>
               </div>
@@ -68,7 +68,7 @@ export default class Scroll extends Component {
   renderItems(data) {
     dbg('render-items: data=%o', data)
     return data.map((elt, idx) => {
-      dbg('map: elt=%o, idx=%o', elt, idx)
+      //dbg('map: elt=%o, idx=%o', elt, idx)
       return (
         <div key={idx}>
           <div>
@@ -86,18 +86,13 @@ export default class Scroll extends Component {
   onEnter = () => {
     dbg('on-enter: props=%o', this.props)
     const {patients} = this.props
-    if (patients.offset < patients.total) {
-      this.props.getPatients(
-        {
-          ...patients.query,
-          offset: patients.offset
-        }
-      )
+    if (patients.more) {
+      this.props.more()
     }
     else {
       dbg('on-enter: offset >= total, no more data to fetch...')
     }
-  }
+  };
 
   onLeave() {
     dbg('on-leave')

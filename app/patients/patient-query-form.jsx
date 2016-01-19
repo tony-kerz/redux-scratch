@@ -21,7 +21,7 @@ function validate(values, props) {
 @reduxForm(
   {
     form: 'patientQueryForm',
-    fields: ['firstName', 'lastName'],
+    fields: ['firstName', 'lastName', 'sort'],
     validate//,
     // onSubmit: (data) => {
     //   dbg('redux-form: data=%o', data)
@@ -36,24 +36,28 @@ export default class PatientQueryForm extends Component {
     const {
       fields: {
         firstName,
-        lastName
+        lastName,
+        sort
       },
       handleSubmit,
       resetForm,
       submitting,
-      getPatients
+      filterPatients
     } = this.props;
 
     return(
-      <form onSubmit={handleSubmit(getPatients)}>
+      <form onSubmit={handleSubmit(filterPatients)}>
         <div className='form-group'>
-          <label htmlFor='first-name'>first name</label>
+          <label htmlFor='first-name'>first name: </label>
           <input type='text' className='form-control' id='first-name' placeholder='first name' {...firstName}/>
         </div>
         <div className='form-group'>
-          <label htmlFor='last-name'>last name</label>
+          <label htmlFor='last-name'>last name: </label>
           <input type='text' className='form-control' id='last-name' placeholder='last name' {...lastName}/>
         </div>
+        <div className='form-group'>
+          <label htmlFor='sort'>sort: </label>
+          <input type='text' className='form-control' id='sort' placeholder='sort' {...sort}/>
           {/*
           <Select
             name='sort'
@@ -81,6 +85,7 @@ export default class PatientQueryForm extends Component {
             <option value='-lastName'>-lastName</option>
           </Select2>
           */}
+        </div>
         <button type='submit' disabled={submitting} className='btn btn-default'>
           {submitting ? <i className='fa fa-cog fa-spin'/> : <i className='fa fa-paper-plane'/>} Submit
         </button>

@@ -1,4 +1,6 @@
 export default {
-  GET_PATIENTS: 'get-patients',
-  GET_PATIENTS_BEGIN: 'get-patients-begin'
+  RESOURCE: 'patients',
+  ACTIVE_TYPE: 'set-active',
+  GET_TYPE: 'get-patients',
+  SCROLL_TYPE: 'get-patients-scroll'
 }

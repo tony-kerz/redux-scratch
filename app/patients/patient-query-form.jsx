@@ -1,8 +1,17 @@
 import debug from 'debug'
 import React, {Component} from 'react'
 import {reduxForm} from 'redux-form'
+// import Select from 'react-select'
+// import Select2 from '../shared/select2'
 
 const dbg = debug('app:patients:query')
+
+// const sortOptions = [
+//   {value: '+firstName', label: 'first name (descending)'},
+//   {value: '-firstName', label: 'first name (ascending)'},
+//   {value: '+lastName', label: 'last name (descending)'},
+//   {value: '-lastName', label: 'last name (ascending)'}
+// ]
 
 function validate(values, props) {
   dbg('validate: values=%o, props=%o', values, props)
@@ -45,6 +54,33 @@ export default class PatientQueryForm extends Component {
           <label htmlFor='last-name'>last name</label>
           <input type='text' className='form-control' id='last-name' placeholder='last name' {...lastName}/>
         </div>
+          {/*
+          <Select
+            name='sort'
+            value='+lastName'
+            options={sortOptions}
+            onBlurResetsInput={false}
+            {...sort}
+          />
+          <Select2
+            name='sort2'
+            value='+lastName'
+            options={
+              {
+                placeholder: 'sort option',
+                allowClear: false,
+                minimumResultsForSearch: Infinity,
+                theme: 'classic'
+              }
+            }
+            {...sort2}
+          >
+            <option value='+firstName'>firstName</option>
+            <option value='-firstName'>-firstName</option>
+            <option value='+lastName'>lastName</option>
+            <option value='-lastName'>-lastName</option>
+          </Select2>
+          */}
         <button type='submit' disabled={submitting} className='btn btn-default'>
           {submitting ? <i className='fa fa-cog fa-spin'/> : <i className='fa fa-paper-plane'/>} Submit
         </button>

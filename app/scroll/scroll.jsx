@@ -69,13 +69,14 @@ export default class Scroll extends Component {
     dbg('render-items: data=%o', data)
     return data.map((elt, idx) => {
       //dbg('map: elt=%o, idx=%o', elt, idx)
+      const {fullName, dateOfBirth, gender} = elt
       return (
         <div key={idx}>
           <div>
-            ({idx + 1}) {elt.fullName}
+            ({idx + 1}) <a onClick={() => this.props.onClick(fullName)}>{fullName}</a>
           </div>
           <div>
-            DOB: {moment(elt.dateOfBirth).format('MM/DD/YYYY')}, Age: {moment().diff(elt.dateOfBirth, 'years')}, Gender: {elt.gender}
+            DOB: {moment(dateOfBirth).format('MM/DD/YYYY')}, Age: {moment().diff(dateOfBirth, 'years')}, Gender: {gender}
           </div>
           <hr/>
         </div>

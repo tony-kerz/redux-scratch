@@ -10,6 +10,8 @@ const zipRe = new RandExp(/\d{5}/)
 export default Object.assign({},
   resource,
   {
+    count: 28,
+
     fake: () => {
       const firstName = faker.name.firstName()
       const lastName = faker.name.lastName()
@@ -31,21 +33,10 @@ export default Object.assign({},
     },
 
     pre: (req, res) => {
-      console.log('pre')
       if (!req.query.sort) {
         req.query.sort = 'fullName'
       }
       sharedPre(req, res)
-      console.log('pre: query=%o', req.query)
     }
-
-    // post: (data) => {
-    //   return {
-    //     response: {
-    //       docs: data
-    //     }
-    //   }
-    // }
-
   }
 )

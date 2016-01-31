@@ -10,12 +10,20 @@ import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import 'bootstrap'
-import 'select2/dist/css/select2.css'
-import 'select2'
+//import 'select2/dist/css/select2.css'
+//import 'select2'
+import 'react-select/dist/react-select.css'
 import 'bootstrap-datepicker/dist/css/bootstrap-datepicker.css'
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker'
 import './app.scss'
 import 'toastr/toastr.scss'
+//import _ from 'lodash'
+
+// lodash 4.0.0 back-compat
+// _.mixin({ 'findWhere': _.find });
+// _.mixin({ 'where': _.filter });
+// _.mixin({ 'object': _.zipObject });
+// _.mixin({ 'pairs': _.toPairs });
 
 const history = createHistory()
 const store = configureStore()

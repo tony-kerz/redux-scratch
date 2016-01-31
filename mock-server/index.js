@@ -1,6 +1,5 @@
 import debug from 'debug'
 import jsonServer from 'json-server'
-import _ from 'lodash'
 import resources from './resources'
 
 const dbg = debug('app:srv')

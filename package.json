@@ -14,7 +14,8 @@
     "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server --watch mock-server/db.json",
     "generate-mock-data": "export DEBUG=app:* && babel-node --presets es2015 mock-server/generate",
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
-    "doc": "jsdoc --configure jsdoc.json --recurse app",
+    "jsdoc": "jsdoc --configure doc/jsdoc.json --destination doc/jsdoc --recurse app",
+    "esdoc": "esdoc -c doc/esdoc.json",
     "test": "jest",
     "mocha": "mocha --recursive --compilers js:babel-core/register",
     "lint": "eslint --ext .js --ext .jsx app"
@@ -59,6 +60,8 @@
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-0": "^6.1.18",
     "css-loader": "^0.23.0",
+    "esdoc": "^0.4.4",
+    "esdoc-es7-plugin": "0.0.3",
     "eslint": "^v2.0.0-alpha-2",
     "eslint-loader": "^1.1.1",
     "eslint-plugin-react": "^3.13.1",

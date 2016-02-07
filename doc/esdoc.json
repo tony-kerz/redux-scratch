@@ -1,0 +1,16 @@
+{
+  "source": "app",
+  "destination": "doc/esdoc",
+  "includes": ["\\.(js|jsx|es6)$"],
+  "excludes": ["\\.config\\.(js|es6)$"],
+  "index": "./README.md",
+  "package": "./package.json",
+  "includeSource": true,
+  "plugins": [
+    {"name": "esdoc-es7-plugin"}
+  ],
+  "test": {
+    "type": "mocha",
+    "source": "./test"
+  }
+}

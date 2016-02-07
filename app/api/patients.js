@@ -4,7 +4,7 @@ import urls from './urls'
 
 const dbg = debug('app:api:patients')
 
-export const getPatientsPromise = async (params) => {
+export async function getPatientsPromise(params) {
   try {
     dbg('get-patients: query=%o', params)
     const result = await axios.get(

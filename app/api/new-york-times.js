@@ -19,7 +19,7 @@ export const articleKeys = _.keys(articleFields)
 .map((key) => {return key.split('.')[0]})
 .join()
 
-export const getArticlesPromise = async (skill) => {
+export async function getArticlesPromise(skill) {
   try {
     dbg('get-articles: skill=%o', skill)
     const result = await axios.get(

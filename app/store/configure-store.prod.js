@@ -11,7 +11,7 @@ const dbg = debug('app:store:dev')
 const finalCreateStore = compose(
   applyMiddleware(
     thunkMiddleware,
-    promiseMiddleware,
+    promiseMiddleware
     // loggerMiddleware(
     //   {
     //     collapsed: true

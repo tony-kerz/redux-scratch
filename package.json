@@ -14,7 +14,7 @@
     "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server --watch mock-server/db.json",
     "generate-mock-data": "export DEBUG=app:* && babel-node --presets es2015 mock-server/generate",
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
-    "doc": "babel-doctor",
+    "doc": "jsdoc --configure jsdoc.json --recurse app",
     "test": "jest",
     "mocha": "mocha --recursive --compilers js:babel-core/register",
     "lint": "eslint --ext .js --ext .jsx app"
@@ -67,6 +67,7 @@
     "html-webpack-plugin": "^2.1.0",
     "imports-loader": "^0.6.5",
     "jest-cli": "^0.8.2",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "json-server": "^0.8.3",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",

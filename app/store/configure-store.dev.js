@@ -5,24 +5,31 @@ import promiseMiddleware from 'redux-promise'
 import loggerMiddleware from 'redux-logger'
 import rootReducer from '../reducers'
 import DevTools from '../dev-tools'
+import {syncHistory} from 'react-router-redux'
 
 const dbg = debug('app:store:dev')
 
-const finalCreateStore = compose(
-  applyMiddleware(
-    thunkMiddleware,
-    promiseMiddleware,
-    loggerMiddleware(
-      {
-        collapsed: true
-      }
-    )
-  ),
-  DevTools.instrument()
-)(createStore)
+export default function configureStore(history) {
+  dbg('root-reducer=%o', rootReducer)
 
-export default function configureStore(initialState) {
-  dbg('root-reducer=%o, initial-state=%o', rootReducer, initialState)
-  const store = finalCreateStore(rootReducer, initialState)
+  const routerMiddleware = syncHistory(history)
+
+  const finalCreateStore = compose(
+    applyMiddleware(
+      thunkMiddleware,
+      promiseMiddleware,
+      routerMiddleware,
+      loggerMiddleware(
+        {
+          collapsed: true
+        }
+      )
+    ),
+    DevTools.instrument()
+  )(createStore)
+
+  const store = finalCreateStore(rootReducer)
+  // for devtools
+  routerMiddleware.listenForReplays(store)
   return store
 }

@@ -19,10 +19,10 @@ export default function(store) {
       <IndexRoute component={Home}/>
       <Route path='home' component={Home}/>
       <Route path='skills' component={Skills}/>
-      <Route path='patients' component={Patients}/>
-      <Route path='stuff' component={Stuff} onEnter={requireAuth('web-client-1.scope-1')}/>
+      <Route path='patients' component={Patients} onEnter={requireAuth('web-client-1.scope-1')}/>
+      <Route path='stuff' component={Stuff} onEnter={requireAuth('dont:have')}/>
       <Route path='nonsense' component={Nonsense}/>
-      <Route path='gallery' component={Gallery} onEnter={requireAuth('level-2')}/>
+      <Route path='gallery' component={Gallery}/>
       <Route path='scroll' component={Scroll}/>
     </Route>
   )

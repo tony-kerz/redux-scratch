@@ -9,11 +9,11 @@ const dbg = debug('app:router:dev')
 export default class extends Component {
   render() {
     dbg('render: props=%o', this.props)
-    const {store} = this.props
+    const {store, history} = this.props
 
     return(
       <div>
-        <Router>
+        <Router history={history}>
           {routes(store)}
         </Router>
         <DevTools/>

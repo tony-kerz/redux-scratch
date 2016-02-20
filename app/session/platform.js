@@ -16,11 +16,11 @@ const init = (hello) => {
       login: (p) => {
         dbg('login: p=%o', p)
       },
-      refresh: true,
-      scope: {
-        basic: 'web-client-1.scope-1'
+      logout: (p) => {
+        dbg('logout: p=%o', p)
+        return urls.oauthLogout
       },
-      scope_delim: ',',
+      refresh: true,
       base: urls.apiBase,
       get: {
         'default': (o, cb) => {

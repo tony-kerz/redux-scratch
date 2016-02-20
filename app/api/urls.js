@@ -1,11 +1,12 @@
-const authBase = 'https://uaa.x.healthagen.com/oauth'
+const authBase = 'https://uaa.x.healthagen.com'
 const apiBase = 'https://api.x.healthagen.com'
 const mockBase = 'http://localhost:3000/api'
 
 let urls = {
   articles: 'http://api.nytimes.com/svc/search/v2/articlesearch.json',
-  oauthAuth: `${authBase}/authorize`,
-  oauthGrant: `${authBase}/token`,
+  oauthAuth: `${authBase}/oauth/authorize`,
+  oauthGrant: `${authBase}/oauth/token`,
+  oauthLogout: `${authBase}/logout`,
   patients: `${apiBase}/patients`
 }
 

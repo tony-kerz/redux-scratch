@@ -1,19 +1,19 @@
 import debug from 'debug'
 import {combineReducers} from 'redux'
-import {routeReducer} from 'redux-simple-router'
-import {reducer as formReducer} from 'redux-form';
-import skillReducer from './skills/reducers'
-import sessionReducer from './session/reducers'
-import patientsReducer from './patients/reducers'
+import {routeReducer as routing} from 'react-router-redux'
+import {reducer as form} from 'redux-form'
+import skill from './skills/reducers'
+import session from './session/reducers'
+import patients from './patients/reducers'
 
 const dbg = debug('app:reducers')
 
 const reducers = {
-  form: formReducer,
-  patients: patientsReducer,
-  routing: routeReducer,
-  skill: skillReducer,
-  session: sessionReducer
+  form,
+  patients,
+  routing,
+  skill,
+  session
 }
 
 dbg('reducers=%o', reducers)

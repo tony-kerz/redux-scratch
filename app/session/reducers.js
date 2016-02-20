@@ -1,14 +1,23 @@
 import debug from 'debug'
 import {handleActions} from 'redux-actions'
-import actions from './constants'
+import { UPDATE_LOCATION } from 'react-router-redux'
+import actions from './action-types'
 
 const dbg = debug('app:session:reducers')
+
+const DEFAULT = {
+  active: false,
+  token: null,
+  target: null,
+  recentHistory: []
+}
 
 export default handleActions(
   {
     [actions.LOGIN_BEGIN]: (state, action) => {
       dbg('login-begin: state=%o, action=%o', state, action)
       return {
+        ...state,
         active: true,
         target: action.payload
       }
@@ -24,6 +33,7 @@ export default handleActions(
     [actions.LOGOUT_BEGIN]: (state, action) => {
       dbg('logout-begin: state=%o, action=%o', state, action)
       return {
+        ...state,
         active: true
       }
     },
@@ -31,15 +41,30 @@ export default handleActions(
       dbg('logout: state=%o, action=%o', state, action)
       return {
         ...state,
-        active: false,
-        token: null,
+        ...DEFAULT
+      }
+    },
+    [actions.PUSH_TARGET]: (state, action) => {
+      dbg('PUSH_TARGET: state=%o, action=%o', state, action)
+      return {
+        ...state,
         target: null
+      }
+    },
+    [UPDATE_LOCATION]: (state, action) => {
+      dbg('update-location: state=%o, action=%o', state, action)
+      // use spread operator to clone array so as not to mutate previous state
+      const recentHistory = [...state.recentHistory]
+      // hold on to last two locations
+      if (recentHistory.length > 1) {
+        recentHistory.shift()
+      }
+      recentHistory.push(action.payload)
+      return {
+        ...state,
+        recentHistory
       }
     }
   },
-  {
-    active: false,
-    token: null,
-    target: null
-  }
+  DEFAULT
 )

@@ -1,10 +1,9 @@
 import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
-import {pushPath} from 'redux-simple-router'
 import _ from 'lodash'
 import './platform'
-import {login} from './actions'
+import {login, pushTarget} from './actions'
 import observe from '../observe'
 import toastr from '../shared/toastr'
 
@@ -12,7 +11,7 @@ const dbg = debug('app:session')
 
 const DEFAULTS = {
   logoutPath: '/',
-  notAuthzPath: '/'
+  unAuthzPath: '/'
 }
 
 Hello.init({
@@ -54,45 +53,34 @@ export const logoutPromise = async () => {
   }
 }
 
-function onSessionChange(opts) {
-  return (session, initial, dispatch) => {
-    dbg('on-session-change: session=%o, initial=%o', session, initial)
-    if (session.token && session.target) {
-      dispatch(pushPath(session.target))
-    } else if (!initial && !session.active && !session.token) {
+function onTokenChange(opts) {
+  return (prev, next, state, dispatch) => {
+    dbg('on-token-change: prev=%o, next=%o', prev, next)
+    if (next) {
+      const {target} = state.session
+      if (target) {
+        dbg('on-token-change: pushing to saved target=%o', target)
+        dispatch(pushTarget(target))
+      }
+    } else {
       // assuming logout
-      dispatch(pushPath(opts.logoutPath))
-      dbg('logging out')
+      dbg('on-token-change: logout...')
+      dispatch(pushTarget(opts.logoutPath))
       toastr.info('logged out')
     }
   }
 }
 
-export function isAuthz(session, privs) {
-  const scope = _.get(session, 'token.decoded.scope')
-  dbg('is-authz: scope=%o, privs=%o', scope, privs)
-  if (_.isString(privs)) {
-    privs = [privs]
-  }
-  let authorized = false
-  _.forEach(privs, (priv) => {
-    if (_.includes(scope, priv))
-    {
-      dbg('require-auth: authorized via priv=%o', priv)
-      authorized = true
-      return false // to break from lodash for-each
-    }
-  })
-  return authorized
-}
-
 export function generateOnEnterHandler(store, opts) {
-  const _opts = _.defaults({}, opts, DEFAULTS)
+  opts = {
+    ...DEFAULTS,
+    ...opts
+  }
 
   observe(
     store,
-    (state) => { return state.session },
-    onSessionChange(_opts)
+    (state) => {return _.get(state, 'session.token')},
+    onTokenChange(opts)
   )
 
   return (privs) => {
@@ -100,31 +88,61 @@ export function generateOnEnterHandler(store, opts) {
       privs = [privs]
     }
 
-    return (nextState, replaceState) => {
-      const {session, routing} = store.getState()
-      let current = routing.path
+    return function(nextState, replace) {
+      const {session} = store.getState()
+      const auth = getAuth(session)
+      let current = session.recentHistory[0].pathname
       const target = nextState.location.pathname
+      //dbg('require-auth: current=%o, target=%o', current, target)
       if (current == target) {
         // assuming this is due to a 'deep-link', so set current = opts.unAuthzPath
         // which will drop there in case of insufficient auth
         current = opts.unAuthzPath
       }
-      dbg('require-auth: current=%o, target=%o, privs=%o, session=%o', current, target, privs, session)
+      dbg('require-auth: current=%o, target=%o, privs=%o', current, target, privs)
       if (session.token) {
-        const authorized = isAuthz(session, privs)
+        const authorized = auth.hasAnyPrivs(privs)
         if (!authorized) {
           dbg('require-auth: authenticated but not authorized (403): privs=%o', privs)
           toastr.info(`not authorized for target [${target}]`)
           // disallow transition
-          replaceState(null, current)
+          replace(current)
         }
       }
       else {
-        dbg('require-auth: login required')
+        dbg('require-auth: login required: login-active=%o', session.active)
         // disallow transition here, successful login should retry transition...
-        replaceState(null, current)
-        store.dispatch(login(target))
+        replace(current)
+        // on deep-link, onEnter gets called twice for some reason,
+        // so skip if inflight login detected via session.active
+        session.active || store.dispatch(login(target))
       }
+    }
+  }
+}
+
+export default function getAuth(session) {
+  return {
+    hasPrivs: (privs) => {
+      const scope = _.get(session, 'token.decoded.scope')
+      if (_.isString(privs)) {
+        privs = [privs]
+      }
+      const every = _.every(privs, (priv) => {return _.includes(scope, priv)})
+      dbg('has-privs: scope=%o, privs=%o, every=%o', scope, privs, every)
+      return every
+    },
+    hasAnyPrivs: (privs) => {
+      const scope = _.get(session, 'token.decoded.scope')
+      if (_.isString(privs)) {
+        privs = [privs]
+      }
+      const some = _.some(privs, (priv) => {return _.includes(scope, priv)})
+      dbg('has-any-privs: scope=%o, privs=%o, some=%o', scope, privs, some)
+      return some
+    },
+    getUserId: () => {
+      return _.get(session, 'token.decoded.user_id')
     }
   }
 }

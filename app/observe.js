@@ -5,16 +5,16 @@ import _ from 'lodash'
 const dbg = debug('app:observe')
 
 export default function(store, select, onChange) {
-  let currentState
+  let prev = null
 
   function handleChange() {
-    const nextState = select(store.getState())
-    //dbg('handle-change: current=%o, next=%o', currentState, nextState)
-    if (nextState !== currentState) {
-      dbg('handle-change: next=%o != current=%o', nextState, currentState)
-      const initial = _.isUndefined(currentState)
-      currentState = nextState
-      onChange(currentState, initial, store.dispatch)
+    const state = store.getState()
+    const next = select(state)
+    if (prev !== next) {
+      dbg('handle-change: prev=%o != next=%o', prev, next)
+      const prevClone = _.cloneDeep(prev)
+      prev = next
+      onChange(prevClone, next, state, store.dispatch)
     }
   }
 

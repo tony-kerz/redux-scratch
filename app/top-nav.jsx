@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import * as actions from './session/actions'
-import {isAuthz} from './session/session'
+import getAuth from './session/session'
 
 const dbg = debug('app:top-nav')
 
@@ -24,6 +24,7 @@ export default class TopNav extends Component {
   render() {
     dbg('render: props=%o', this.props)
     const {session, logout, login} = this.props
+    const auth = getAuth(session)
 
     return (
       <nav className='navbar navbar-default navbar-fixed-top'>
@@ -45,16 +46,14 @@ export default class TopNav extends Component {
               <li>
                 <Link to='/gallery' activeClassName='active'>Gallery</Link>
               </li>
-              { isAuthz(session, ['skills.read', 'admin', 'web-client-1.scope-1']) &&
               <li>
                 <Link to='/skills' activeClassName='active'>Skills</Link>
               </li>
+              { auth.hasPrivs(['web-client-1.scope-1']) &&
+                <li>
+                  <Link to='/patients' activeClassName='active'>Patients</Link>
+                </li>
               }
-              {/* isAuthz(session, ['skills.read', 'admin']) && */}
-              <li>
-                <Link to='patients' activeClassName='active'>Patients</Link>
-              </li>
-              {/* */}
               <li>
                 <Link to='/scroll' activeClassName='active'>Scroll</Link>
               </li>

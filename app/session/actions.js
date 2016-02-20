@@ -1,5 +1,6 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
+import {routeActions} from 'react-router-redux'
 import actions from './action-types'
 import {loginPromise, logoutPromise} from './session'
 import _ from 'lodash'
@@ -28,5 +29,11 @@ export const logout = () => {
 }
 
 const logoutBegin = createAction(actions.LOGOUT_BEGIN)
+
+export const pushTarget = (target) => {
+  dbg('push-target: target=%o', target)
+  return (dispatch) => {
+    dispatch(routeActions.push(target))
+    dispatch(createAction(actions.PUSH_TARGET)())
   }
-)
+}

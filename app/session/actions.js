@@ -1,6 +1,6 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
-import actions from './constants'
+import actions from './action-types'
 import {loginPromise, logoutPromise} from './session'
 import _ from 'lodash'
 

@@ -1,6 +1,6 @@
 import debug from 'debug'
 import {handleActions} from 'redux-actions'
-import actions from './constants'
+import actions from './action-types'
 
 const dbg = debug('app:session:reducers')
 

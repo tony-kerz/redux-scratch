@@ -16,13 +16,7 @@ export const login = (target) => {
   }
 }
 
-const loginBegin = createAction(
-  actions.LOGIN_BEGIN,
-  (target) => {
-    dbg('login-begin: target=%o', target)
-    return target
-  }
-)
+const loginBegin = createAction(actions.LOGIN_BEGIN)
 
 export const logout = () => {
   dbg('logout')
@@ -33,9 +27,6 @@ export const logout = () => {
   }
 }
 
-const logoutBegin = createAction(
-  actions.LOGOUT_BEGIN,
-  () => {
-    dbg('logout-begin')
+const logoutBegin = createAction(actions.LOGOUT_BEGIN)
   }
 )

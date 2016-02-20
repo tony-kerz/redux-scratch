@@ -34,20 +34,20 @@ export default class TopNav extends Component {
           <div id='navbar' className='collapse navbar-collapse'>
             <ul className='nav navbar-nav'>
               <li>
-                <Link to='home' activeClassName='active'>Home</Link>
+                <Link to='/home' activeClassName='active'>Homie</Link>
               </li>
               <li>
-                <Link to='stuff' activeClassName='active'>Stuff</Link>
+                <Link to='/stuff' activeClassName='active'>Stuff</Link>
               </li>
               <li>
-                <Link to='nonsense' activeClassName='active'>Nonsense</Link>
+                <Link to='/nonsense' activeClassName='active'>Nonsense</Link>
               </li>
               <li>
-                <Link to='gallery' activeClassName='active'>Gallery</Link>
+                <Link to='/gallery' activeClassName='active'>Gallery</Link>
               </li>
               { isAuthz(session, ['skills.read', 'admin', 'web-client-1.scope-1']) &&
               <li>
-                <Link to='skills' activeClassName='active'>Skills</Link>
+                <Link to='/skills' activeClassName='active'>Skills</Link>
               </li>
               }
               {/* isAuthz(session, ['skills.read', 'admin']) && */}
@@ -56,7 +56,7 @@ export default class TopNav extends Component {
               </li>
               {/* */}
               <li>
-                <Link to='scroll' activeClassName='active'>Scroll</Link>
+                <Link to='/scroll' activeClassName='active'>Scroll</Link>
               </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>

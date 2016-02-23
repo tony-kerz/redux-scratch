@@ -144,8 +144,8 @@ export default function getAuth(session) {
       dbg('has-any-privs: scope=%o, privs=%o, some=%o', scope, privs, some)
       return some
     },
-    getUserId: () => {
-      return _.get(session, 'token.decoded.user_id')
+    getUserName: () => {
+      return _.get(session, 'token.decoded.user_name')
     }
   }
 }

@@ -14,9 +14,12 @@ const DEFAULTS = {
   unAuthzPath: '/'
 }
 
-Hello.init({
-  platform: 'web-client-1'
-})
+export function sessionInit(client) {
+  dbg('session-init: client=%o', client)
+  Hello.init({
+    platform: client
+  })
+}
 
 export const loginPromise = async () => {
   try {
@@ -141,8 +144,11 @@ export default function getAuth(session) {
       dbg('has-any-privs: scope=%o, privs=%o, some=%o', scope, privs, some)
       return some
     },
-    getUserId: () => {
-      return _.get(session, 'token.decoded.user_id')
+    getUserName: () => {
+      return _.get(session, 'token.decoded.user_name')
+    },
+    isAuthenticated: () => {
+      return session.token
     }
   }
 }

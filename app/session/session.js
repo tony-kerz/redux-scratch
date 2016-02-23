@@ -146,6 +146,9 @@ export default function getAuth(session) {
     },
     getUserName: () => {
       return _.get(session, 'token.decoded.user_name')
+    },
+    isAuthenticated: () => {
+      return session.token
     }
   }
 }

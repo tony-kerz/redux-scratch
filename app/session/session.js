@@ -14,9 +14,12 @@ const DEFAULTS = {
   unAuthzPath: '/'
 }
 
-Hello.init({
-  platform: 'web-client-1'
-})
+export function sessionInit(client) {
+  dbg('session-init: client=%o', client)
+  Hello.init({
+    platform: client
+  })
+}
 
 export const loginPromise = async () => {
   try {

@@ -2,7 +2,7 @@ import 'babel-core/polyfill'
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import { hashHistory } from 'react-router'
+import {hashHistory as history} from 'react-router'
 import configureStore from './store/configure-store'
 import Router from './router/router'
 import 'font-awesome/css/font-awesome.css'
@@ -16,11 +16,11 @@ import 'bootstrap-datepicker/dist/js/bootstrap-datepicker'
 import './app.scss'
 import 'toastr/toastr.scss'
 
-const store = configureStore(hashHistory)
+const store = configureStore(history)
 
 render(
   <Provider store={store}>
-    <Router history={hashHistory} store={store}/>
+    <Router history={history} store={store}/>
   </Provider>,
   document.getElementById('root')
 )

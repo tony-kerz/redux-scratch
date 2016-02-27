@@ -17,7 +17,7 @@ import './app.scss'
 import 'toastr/toastr.scss'
 import {sessionInit} from './session/session'
 
-sessionInit('smart-transitions')
+sessionInit('web-client-1')
 
 const store = configureStore(history)
 

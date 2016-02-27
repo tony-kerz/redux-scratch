@@ -67,7 +67,7 @@ export default class TopNav extends Component {
                 </li>
                 ) : (
                 <li>
-                  <button onClick={login} className='btn btn-default'>
+                  <button onClick={()=>login('patients')} className='btn btn-default'>
                     Login
                   </button>
                 </li>

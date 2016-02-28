@@ -16,6 +16,14 @@ import 'bootstrap-datepicker/dist/js/bootstrap-datepicker'
 import './app.scss'
 import 'toastr/toastr.scss'
 import {sessionInit} from './session/session'
+import _ from 'lodash'
+
+// lodash 4.0.0 back-compat
+_.mixin({ 'findWhere': _.find });
+_.mixin({ 'where': _.filter });
+_.mixin({ 'object': _.zipObject });
+_.mixin({ 'pairs': _.toPairs });
+_.mixin({ 'pluck': _.map });
 
 sessionInit('web-client-1')
 

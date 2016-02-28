@@ -3,6 +3,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import {hashHistory as history} from 'react-router'
+import {syncHistoryWithStore} from 'react-router-redux'
 import configureStore from './store/configure-store'
 import Router from './router/router'
 import 'font-awesome/css/font-awesome.css'
@@ -29,10 +30,11 @@ _.mixin({ 'pluck': _.map });
 sessionInit('web-client-1')
 
 const store = configureStore(history)
+const enhancedHistory = syncHistoryWithStore(history, store)
 
 render(
   <Provider store={store}>
-    <Router history={history} store={store}/>
+    <Router history={enhancedHistory} store={store}/>
   </Provider>,
   document.getElementById('root')
 )

@@ -43,6 +43,7 @@
     "react-router": "^2.0.0",
     "react-router-redux": "^3.0.0",
     "react-waypoint": "^1.2.3",
+    "react-select": "^0.9.1",
     "redux": "^3.3.1",
     "redux-actions": "^0.9.1",
     "redux-form": "^4.1.9",

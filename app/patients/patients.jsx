@@ -2,12 +2,16 @@ import debug from 'debug'
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import * as actions from './actions'
+import actions from './actions'
 import Table from '../shared/table'
 import moment from 'moment'
 import PatientQueryForm from './patient-query-form'
+import {getPageKey} from '../shared/page/utils'
+import constants from './constants'
 
 const dbg = debug('app:patients')
+
+const pageKey = getPageKey(constants.RESOURCE)
 
 const patientColMeta = {
   'full name': 'fullName',
@@ -35,8 +39,8 @@ const patientColMeta = {
 )
 export default class Patients extends Component {
   render() {
-    dbg('render: props=%o', this.props)
-    const {data} = this.props.patients
+    dbg('render: props=%o, page-key=%o', this.props, pageKey)
+    const {data} = this.props.patients[pageKey]
 
     return(
       <div className='panel panel-default'>
@@ -49,7 +53,9 @@ export default class Patients extends Component {
               <h3 className='panel-title'>Patient Search</h3>
             </div>
             <div className='panel-body'>
-              <PatientQueryForm getPatients={this.props.getPatients}/>
+              <PatientQueryForm
+                filterPatients={(filter) => this.props.filter(pageKey, filter)}
+              />
             </div>
           </div>
           { data && (

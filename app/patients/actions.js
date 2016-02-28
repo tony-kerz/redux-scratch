@@ -1,30 +1,60 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
-import _ from 'lodash'
-import actions from './constants'
+import constants from './constants'
 import {getPatientsPromise} from '../api/patients'
+import pageActionFactory from '../shared/page/actions'
+import actions from './action-types'
+import {getPageKey} from '../shared/page/utils'
 
 const dbg = debug('app:patients:actions')
 
-export const getPatients = (query) => {
-  dbg('get-patients: query=%o', query)
-  return (dispatch, getState) => {
-    const state = getState().patients
-    dbg('get-patients-thunk: query=%o, state=%o', query, state)
-    query = _.omit(query, (s) => { return _.isEmpty(_.trim(s)) })
-    query = Object.assign({}, query, {limit: state.limit})
-    dbg('query=%o', query)
-    dispatch(getPatientsBegin(query))
-    setTimeout(() => {
-      dispatch(createAction(actions.GET_PATIENTS, getPatientsPromise)(query))
-    }, 1000)
+const someAction = createAction(
+  actions.SOME_ACTION,
+  (value) => {
+    dbg('some-action: value=%o', value)
+    return value
+  }
+)
+
+const pageActionMap = {
+  [getPageKey(constants.RESOURCE)]: pageActionFactory(constants.RESOURCE, getPatientsPromise),
+  [getPageKey(constants.ALT_PAGE_KEY)]: pageActionFactory(constants.RESOURCE, getPatientsPromise, constants.ALT_PAGE_KEY)
+}
+
+// create wrappers for page actions parameterized by key
+// other option would be to create distinctly named actions (e.g. patientsAltFilter)
+//
+const pageActions = {
+  filter: (pageKey, filter) => {
+    dbg('filter(%o): filter=%o', pageKey, filter)
+    return (dispatch) => {
+      dispatch(pageActionMap[pageKey].filter(filter))
+    }
+  },
+
+  sort: (pageKey, field, isAscending) => {
+    dbg('sort(resource): field=%o, is-ascending=%o', pageKey, field, isAscending)
+    return (dispatch) => {
+      dispatch(pageActionMap[pageKey].sort(field, isAscending))
+    }
+  },
+
+  page: (pageKey, index) => {
+    dbg('page(%o): index=%o', pageKey, index)
+    return (dispatch) => {
+      dispatch(pageActionMap[pageKey].page(index))
+    }
+  },
+
+  more: (pageKey) => {
+    dbg('more(%o)', pageKey)
+    return (dispatch) => {
+      dispatch(pageActionMap[pageKey].more())
+    }
   }
 }
 
-const getPatientsBegin = createAction(
-  actions.GET_PATIENTS_BEGIN,
-  (query) => {
-    dbg('get-patients-begin: query=%o', query)
-    return query
-  }
-)
+export default {
+  someAction,
+  ...pageActions
+}

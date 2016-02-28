@@ -3,11 +3,15 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Waypoint from 'react-waypoint'
-import * as actions from '../patients/actions'
+import actions from '../patients/actions'
+import constants from '../patients/constants'
 import PatientQueryForm from '../patients/patient-query-form'
 import moment from 'moment'
+import {getPageKey} from '../shared/page/utils'
 
 const dbg = debug('app:scroll')
+
+const pageKey = getPageKey(constants.ALT_PAGE_KEY)
 
 @connect(
   (state) => {
@@ -24,7 +28,7 @@ const dbg = debug('app:scroll')
 export default class Scroll extends Component {
   render() {
     dbg('render: props=%o', this.props)
-    const {data, active, offset} = this.props.patients
+    const {data, active, offset} = this.props.patients[pageKey]
 
     return(
       <div className='panel panel-default greedy-height scroll'>
@@ -37,7 +41,9 @@ export default class Scroll extends Component {
               <h3 className='panel-title'>Patient Search</h3>
             </div>
             <div className='panel-body'>
-              <PatientQueryForm getPatients={this.props.getPatients}/>
+              <PatientQueryForm
+                filterPatients={(filter) => this.props.filter(pageKey, filter)}
+              />
             </div>
           </div>
           <div className='panel panel-default scroll-panel'>
@@ -54,7 +60,7 @@ export default class Scroll extends Component {
                 </div>
               )}
             </div>
-            { active && (
+            { (active > 0) && (
               <div className='overlay'>
                 <i className='fa fa-3x fa-circle-o-notch fa-spin'></i>
               </div>
@@ -68,7 +74,7 @@ export default class Scroll extends Component {
   renderItems(data) {
     dbg('render-items: data=%o', data)
     return data.map((elt, idx) => {
-      dbg('map: elt=%o, idx=%o', elt, idx)
+      //dbg('map: elt=%o, idx=%o', elt, idx)
       return (
         <div key={idx}>
           <div>
@@ -85,14 +91,9 @@ export default class Scroll extends Component {
 
   onEnter = () => {
     dbg('on-enter: props=%o', this.props)
-    const {patients} = this.props
-    if (patients.offset < patients.total) {
-      this.props.getPatients(
-        {
-          ...patients.query,
-          offset: patients.offset
-        }
-      )
+    const {more} = this.props.patients[pageKey]
+    if (more) {
+      this.props.more(pageKey)
     }
     else {
       dbg('on-enter: offset >= total, no more data to fetch...')

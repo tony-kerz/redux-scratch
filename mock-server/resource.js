@@ -5,7 +5,7 @@ export default {
 
   count: 10,
 
-  pre: (req, res) => {
+  pre: () => {
     // no-op
   },
 
@@ -14,7 +14,7 @@ export default {
   },
 
   generate: function() {
-    let data = []
+    const data = []
     for (let i = 0; i < this.count; i++) {
       data.push(this.fake())
     }

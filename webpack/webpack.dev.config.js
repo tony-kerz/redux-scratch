@@ -2,7 +2,7 @@ var commonConfig = require('./webpack.common.config')
 var _ = require('lodash')
 var DefinePlugin = require('webpack/lib/DefinePlugin')
 
-config = _.extend(
+const config = _.extend(
   commonConfig,
   {
     devtool: 'eval', // fastest, least-helpful

@@ -31,21 +31,10 @@ export default Object.assign({},
     },
 
     pre: (req, res) => {
-      console.log('pre')
       if (!req.query.sort) {
         req.query.sort = 'fullName'
       }
       sharedPre(req, res)
-      console.log('pre: query=%o', req.query)
     }
-
-    // post: (data) => {
-    //   return {
-    //     response: {
-    //       docs: data
-    //     }
-    //   }
-    // }
-
   }
 )

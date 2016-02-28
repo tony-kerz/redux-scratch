@@ -5,13 +5,14 @@ import {getActionType, getPageKey} from './utils'
 
 const dbg = debug('app:shared:page:reducers')
 
-export function getPageDefaultState(resource, limit = 10) {
+export function getPageDefaultState(resource, query = {}) {
   return {
     [getPageKey(resource)]: {
       query: {
-        limit: limit,
+        limit: 10,
         offset: 0,
-        sort: null
+        sort: null,
+        ...query
       },
       data: null,
       total: 0,

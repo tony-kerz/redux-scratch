@@ -64,13 +64,13 @@ export default class TopNav extends Component {
             <ul className='nav navbar-nav navbar-right'>
               { session.token ? (
                 <li>
-                  <button onClick={logout} className='btn btn-default'>
+                  <button onClick={logout} className='btn btn-default navbar-btn'>
                     Logout
                   </button>
                 </li>
                 ) : (
                 <li>
-                  <button onClick={()=>login('patients')} className='btn btn-default'>
+                  <button onClick={()=>login('patients')} className='btn btn-default navbar-btn'>
                     Login
                   </button>
                 </li>

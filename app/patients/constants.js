@@ -1,4 +1,5 @@
 export default {
-  GET_PATIENTS: 'get-patients',
-  GET_PATIENTS_BEGIN: 'get-patients-begin'
+  RESOURCE: 'patients',
+  ALT_PAGE_KEY: 'patientsAlt',
+  LIMIT: 5
 }

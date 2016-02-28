@@ -57,17 +57,20 @@ export default class TopNav extends Component {
               <li>
                 <Link to='/scroll' activeClassName='active'>Scroll</Link>
               </li>
+              <li>
+                <Link to='griddle' activeClassName='active'>Griddle</Link>
+              </li>
             </ul>
             <ul className='nav navbar-nav navbar-right'>
               { session.token ? (
                 <li>
-                  <button onClick={logout} className='btn btn-default'>
+                  <button onClick={logout} className='btn btn-default navbar-btn'>
                     Logout
                   </button>
                 </li>
                 ) : (
                 <li>
-                  <button onClick={()=>login('patients')} className='btn btn-default'>
+                  <button onClick={()=>login('patients')} className='btn btn-default navbar-btn'>
                     Login
                   </button>
                 </li>

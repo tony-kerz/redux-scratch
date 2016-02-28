@@ -1,6 +1,6 @@
 import debug from 'debug'
 import {handleActions} from 'redux-actions'
-import { UPDATE_LOCATION } from 'react-router-redux'
+import {LOCATION_CHANGE} from 'react-router-redux'
 import actions from './action-types'
 
 const dbg = debug('app:session:reducers')
@@ -51,8 +51,8 @@ export default handleActions(
         target: null
       }
     },
-    [UPDATE_LOCATION]: (state, action) => {
-      dbg('update-location: state=%o, action=%o', state, action)
+    [LOCATION_CHANGE]: (state, action) => {
+      dbg('location-change: state=%o, action=%o', state, action)
       // use spread operator to clone array so as not to mutate previous state
       const recentHistory = [...state.recentHistory]
       // hold on to last two locations

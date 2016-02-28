@@ -8,6 +8,7 @@ import Stuff from '../stuff/stuff'
 import Nonsense from '../nonsense/nonsense'
 import Gallery from '../gallery/gallery'
 import Scroll from '../scroll/scroll'
+import PatientsGriddle from '../griddle/patients'
 import {generateOnEnterHandler} from '../session/session'
 
 export default function(store) {
@@ -24,6 +25,7 @@ export default function(store) {
       <Route path='nonsense' component={Nonsense}/>
       <Route path='gallery' component={Gallery}/>
       <Route path='scroll' component={Scroll}/>
+      <Route path='griddle' component={PatientsGriddle}/>
     </Route>
   )
 }

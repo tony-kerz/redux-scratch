@@ -4,17 +4,18 @@ import urls from './urls'
 
 const dbg = debug('app:api:patients')
 
-export async function getPatientsPromise(params) {
+export async function getPatientsPromise(query) {
   try {
-    dbg('get-patients: query=%o', params)
+    dbg('get-patients: query=%o', query)
     const result = await axios.get(
       urls.patients,
       {
-        params: params
+        params: query
       }
     )
     dbg('get-patients: result=%o', result)
     return {
+      query,
       data: result.data,
       total: parseInt(result.headers['x-total-count'])
     }

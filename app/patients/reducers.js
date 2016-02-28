@@ -1,41 +1,31 @@
 import debug from 'debug'
 import {handleActions} from 'redux-actions'
-import actions from './constants'
+import reduceReducers from 'reduce-reducers'
+import constants from './constants'
+import pageReducerFactory, {getPageDefaultState} from '../shared/page/reducers'
+import actions from './action-types'
 
 const dbg = debug('app:patients:reducers')
 
-export default handleActions(
-  {
-    [actions.GET_PATIENTS_BEGIN]: (state, action) => {
-      dbg('get-patients-begin: state=%o, action=%o', state, action)
-      return {
-        ...state,
-        active: true,
-        query: action.payload
-      }
-    },
-    [actions.GET_PATIENTS]: (state, action) => {
-      dbg('get-patients: state=%o, action=%o', state, action)
-      let {data} = state
-      const {data: newData, total} = action.payload
-      dbg('data=%o, new-data=%o, total=%o', data, newData, total)
-      data = data ? data.concat(newData) : newData
+const defaultState = {
+  someState: 'default',
+  ...getPageDefaultState(constants.RESOURCE, 100),
+  ...getPageDefaultState(constants.ALT_PAGE_KEY, constants.LIMIT)
+}
 
+const skillReducer = handleActions(
+  {
+    [actions.SOME_ACTION]: (state, action) => {
+      dbg('some-action: state=%o, action=%o', state, action)
       return {
-        ...state,
-        active: false,
-        data,
-        offset: data.length,
-        total
+        someState: action.payload
       }
     }
-  },
-  {
-    active: false,
-    query: null,
-    data: null,
-    limit: 5,
-    offset: 0,
-    total: 0
   }
 )
+
+export default (state = defaultState, action) => reduceReducers(
+  pageReducerFactory(constants.RESOURCE),
+  pageReducerFactory(constants.ALT_PAGE_KEY),
+  skillReducer
+)(state, action)

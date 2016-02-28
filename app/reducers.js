@@ -1,6 +1,6 @@
 import debug from 'debug'
 import {combineReducers} from 'redux'
-import {routeReducer as routing} from 'react-router-redux'
+import {routerReducer as routing} from 'react-router-redux'
 import {reducer as form} from 'redux-form'
 import skill from './skills/reducers'
 import session from './session/reducers'

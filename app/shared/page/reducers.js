@@ -22,7 +22,7 @@ export function getPageDefaultState(resource, query = {}) {
   }
 }
 
-export default function(resource, limit = 10) {
+export default function(resource, query = {}) {
   const pageKey = getPageKey(resource)
 
   return handleActions(
@@ -78,6 +78,6 @@ export default function(resource, limit = 10) {
         }
       }
     },
-    getPageDefaultState(resource, limit)
+    getPageDefaultState(resource, query)
   )
 }

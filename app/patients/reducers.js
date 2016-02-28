@@ -4,13 +4,14 @@ import reduceReducers from 'reduce-reducers'
 import constants from './constants'
 import pageReducerFactory, {getPageDefaultState} from '../shared/page/reducers'
 import actions from './action-types'
+import ApiHelper from '../api/helper'
 
 const dbg = debug('app:patients:reducers')
 
 const defaultState = {
   someState: 'default',
-  ...getPageDefaultState(constants.RESOURCE, 100),
-  ...getPageDefaultState(constants.ALT_PAGE_KEY, constants.LIMIT)
+  ...getPageDefaultState(constants.RESOURCE, {limit: 100, sort: ApiHelper.getSortParam('firstName', true)}),
+  ...getPageDefaultState(constants.ALT_PAGE_KEY, {limit: constants.LIMIT})
 }
 
 const skillReducer = handleActions(

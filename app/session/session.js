@@ -94,7 +94,8 @@ export function generateOnEnterHandler(store, opts) {
     return function(nextState, replace) {
       const {session} = store.getState()
       const auth = getAuth(session)
-      let current = session.recentHistory[0].pathname
+      const history = session.recentHistory
+      let current = history.length > 0 ? history[0].pathname : opts.unAuthzPath
       const target = nextState.location.pathname
       //dbg('require-auth: current=%o, target=%o', current, target)
       if (current == target) {

@@ -1,4 +1,5 @@
-const authBase = 'https://uaa.x.healthagen.com'
+//const authBase = 'https://uaa.x.healthagen.com'
+const authBase = 'http://localhost:8081'
 const apiBase = 'https://api.x.healthagen.com'
 const mockBase = 'http://localhost:3000/api'
 

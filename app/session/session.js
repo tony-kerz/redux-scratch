@@ -2,7 +2,6 @@ import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
 import _ from 'lodash'
-import './platform'
 import {login, pushTarget} from './actions'
 import observe from '../observe'
 import toastr from '../shared/toastr'
@@ -14,11 +13,31 @@ const DEFAULTS = {
   unAuthzPath: '/'
 }
 
-export function sessionInit(client) {
-  dbg('session-init: client=%o', client)
-  Hello.init({
-    platform: client
-  })
+export function sessionInit(opts) {
+  dbg('session-init: opts=%o', opts)
+  Hello.init(
+    {
+      platform: {
+        name: opts.name,
+        oauth: {
+          version: '2',
+          auth: opts.authUrl,
+          grant: opts.grantUrl
+        },
+        logout: (p) => {
+          dbg('logout: p=%o', p)
+          return opts.logoutUrl
+        },
+        refresh: true
+      }
+    }
+  )
+
+  Hello.init(
+    {
+      platform: opts.name
+    }
+  )
 }
 
 export const loginPromise = async () => {

@@ -19,6 +19,7 @@ import './app.scss'
 import 'toastr/toastr.scss'
 import {sessionInit} from './session/session'
 import _ from 'lodash'
+import urls from './api/urls'
 
 // lodash 4.0.0 back-compat
 _.mixin({ 'findWhere': _.find });
@@ -27,7 +28,14 @@ _.mixin({ 'object': _.zipObject });
 _.mixin({ 'pairs': _.toPairs });
 _.mixin({ 'pluck': _.map });
 
-sessionInit('web-client-1')
+sessionInit(
+  {
+    name: 'web-client-1',
+    authUrl: urls.oauthAuth,
+    grantUrl: urls.oauthGrant,
+    logoutUrl: urls.oauthLogout
+  }
+)
 
 const store = configureStore(history)
 const enhancedHistory = syncHistoryWithStore(history, store)

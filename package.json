@@ -10,25 +10,28 @@
   "scripts": {
     "build-dev": "webpack --config webpack/webpack.dev.config.js",
     "dev": "webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
-    "dev-mock": "export DEBUG=app:* && babel-node --presets es2015 mock-server & webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
-    "mock-server": "export DEBUG=app:* && babel-node --presets es2015 mock-server --watch mock-server/db.json",
-    "generate-mock-data": "export DEBUG=app:* && babel-node --presets es2015 mock-server/generate",
+    "dev-mock": "export DEBUG=app:* && babel-node mock-server & webpack-dev-server --config webpack/webpack.dev.config.js --progress --colors --hot --inline",
+    "mock-server": "export DEBUG=app:* && babel-node mock-server --watch mock-server/db.json",
+    "generate-mock-data": "export DEBUG=app:* && babel-node mock-server/generate",
     "build-prod": "webpack --config webpack/webpack.prod.config.js",
     "jsdoc": "jsdoc --configure doc/jsdoc.json --destination doc/jsdoc --recurse app",
     "esdoc": "esdoc -c doc/esdoc.json",
     "test": "jest",
     "mocha": "mocha --recursive --compilers js:babel-core/register",
     "lint": "eslint --ext .js --ext .jsx app",
-    "babel": "babel-node"
+    "babel": "babel-node",
+    "ava": "env DEBUG=app:*,test:* NODE_ENV=auto ava test/ava"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.9.1",
-    "bootstrap": "^3.3.6",
+    "auth0-js": "^8.7.0",
+    "axios": "^0.16.2",
+    "babel-polyfill": "^6.23.0",
+    "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.5.0",
-    "debug": "^2.2.0",
-    "font-awesome": "^4.5.0",
+    "debug": "^2.6.8",
+    "font-awesome": "^4.7.0",
     "griddle-react": "^0.3.1",
     "hellojs": "^1.12.0",
     "jquery": "^2.1.4",
@@ -44,6 +47,7 @@
     "react-router-redux": "^4.0.0",
     "react-select": "^0.9.1",
     "react-waypoint": "^1.3.0",
+    "reduce-reducers": "^0.1.2",
     "redux": "^3.3.1",
     "redux-actions": "^0.9.1",
     "redux-form": "^4.2.0",
@@ -54,41 +58,39 @@
     "toastr": "^2.1.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.2.4",
-    "babel-core": "^5.8.34",
-    "babel-eslint": "^5.0.0-beta6",
-    "babel-jest": "^6.0.1",
-    "babel-loader": "^5.4.0",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-react": "^6.1.18",
-    "babel-preset-stage-0": "^6.1.18",
+    "ava": "^0.19.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.23.0",
-    "esdoc": "^0.4.4",
-    "esdoc-es7-plugin": "0.0.3",
-    "eslint": "^v2.0.0-alpha-2",
-    "eslint-loader": "^1.1.1",
-    "eslint-plugin-react": "^3.13.1",
-    "faker": "^3.0.1",
-    "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.1.0",
-    "imports-loader": "^0.6.5",
-    "jest-cli": "^0.8.2",
-    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
-    "json-server": "^0.8.3",
-    "mocha": "^2.4.5",
-    "node-sass": "^3.4.2",
-    "randexp": "^0.4.2",
+    "eslint-config-xo-react": "^0.12.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-react": "^7.0.1",
+    "faker": "^4.1.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.28.0",
+    "imports-loader": "^0.7.1",
+    "jest-cli": "^20.0.4",
+    "json-server": "^0.10.1",
+    "mocha": "^3.4.2",
+    "node-sass": "^4.5.3",
+    "randexp": "^0.4.5",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.4",
-    "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.12.13",
-    "webpack-dev-server": "^1.14.1"
-  },
-  "engines": {
-    "node": ">=5.1.0"
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "^1.16.5",
+    "xo": "^0.18.2"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -106,5 +108,87 @@
       "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/fbjs"
     ]
+  },
+  "eslintConfig": {
+    "import/extensions": [
+      "js",
+      "jsx"
+    ],
+    "settings": {
+      "import/extensions": [
+        "js",
+        "jsx"
+      ]
+    },
+    "extends": [
+      "plugin:import/react"
+    ]
+  },
+  "xo": {
+    "extends": "xo-react",
+    "useEslintrc": false,
+    "plugins": [
+      "react"
+    ],
+    "parser": "babel-eslint",
+    "space": true,
+    "semicolon": false,
+    "rules": {
+      "indent": "off",
+      "capitalized-comments": "off",
+      "import/prefer-default-export": "off",
+      "import/no-unassigned-import": "off",
+      "linebreak-style": "off",
+      "new-cap": "off",
+      "no-console": "error",
+      "no-unused-expressions": [
+        "error",
+        {
+          "allowShortCircuit": true,
+          "allowTernary": true
+        }
+      ],
+      "radix": "off",
+      "no-await-in-loop": "off",
+      "guard-for-in": "off",
+      "unicorn/no-new-buffer": "off",
+      "unicorn/filename-case": "off",
+      "unicorn/custom-error-definition": "off",
+      "unicorn/no-array-instanceof": "off",
+      "unicorn/catch-error-name": "off",
+      "unicorn/no-process-exit": "off",
+      "unicorn/throw-new-error": "off",
+      "unicorn/number-literal-case": "off",
+      "unicorn/prefer-starts-ends-with": "off",
+      "unicorn/prefer-type-error": "off",
+      "unicorn/explicit-length-check": "off",
+      "unicorn/no-abusive-eslint-disable": "off",
+      "space-before-function-paren": "off",
+      "react/jsx-tag-spacing": [
+        "error",
+        {
+          "beforeSelfClosing": "always"
+        }
+      ],
+      "react/jsx-closing-bracket-location": [
+        "error",
+        "tag-aligned"
+      ],
+      "react/prop-types": "off",
+      "react/forbid-component-props": "warn",
+      "react/jsx-no-bind": "warn",
+      "react/no-array-index-key": "warn",
+      "react/no-string-refs": "warn",
+      "operator-linebreak": [
+        "error",
+        "after",
+        {
+          "overrides": {
+            "?": "before",
+            ":": "before"
+          }
+        }
+      ]
+    }
   }
 }

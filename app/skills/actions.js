@@ -1,14 +1,19 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
-import actions from './constants'
 import {getArticlesPromise} from '../api/new-york-times'
+import actions from './constants'
 
 const dbg = debug('app:home:actions')
 
-export const setSkill = (skill) => {
+const setSkillBegin = createAction(actions.SET_SKILL_BEGIN, skill => {
+  dbg('set-skill-begin: skill=%o', skill)
+  return skill
+})
+
+export const setSkill = skill => {
   dbg('set-skill: skill=%o', skill)
   // thunk-middleware will process this function (and pass dispatch/getState args)
-  return (dispatch) => {
+  return dispatch => {
     dbg('set-skill-thunk: skill=%o', skill)
     // dispatch 'begin' action to allow for things like activating a 'waiting' spinner
     dispatch(setSkillBegin(skill))
@@ -19,14 +24,6 @@ export const setSkill = (skill) => {
     }, 3000)
   }
 }
-
-const setSkillBegin = createAction(
-  actions.SET_SKILL_BEGIN,
-  (skill) => {
-    dbg('set-skill-begin: skill=%o', skill)
-    return skill
-  }
-)
 
 // without createAction:
 //

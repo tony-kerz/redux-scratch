@@ -18,7 +18,8 @@ export default class extends Component {
         items={this.props.maxPage}
         maxButtons={5}
         activePage={this.props.currentPage + 1}
-        onSelect={this.handleSelect} />
+        onSelect={this.handleSelect}
+      />
     )
   }
 
@@ -26,6 +27,5 @@ export default class extends Component {
     const {eventKey} = selectedEvent
     dbg('handle-select: event-key=%o', eventKey)
     this.props.setPage(eventKey - 1)
-  };
-
+  }
 }

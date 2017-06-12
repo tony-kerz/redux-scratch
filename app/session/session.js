@@ -2,10 +2,10 @@ import debug from 'debug'
 import Hello from 'hellojs/dist/hello'
 import jwtDecode from 'jwt-decode'
 import _ from 'lodash'
-import './platform'
-import {login, pushTarget} from './actions'
 import observe from '../observe'
 import toastr from '../shared/toastr'
+import './platform'
+import {login, pushTarget} from './actions'
 
 const dbg = debug('app:session')
 
@@ -34,8 +34,7 @@ export const loginPromise = async () => {
       encoded,
       decoded
     }
-  }
-  catch (caught) {
+  } catch (caught) {
     dbg('login-promise: caught=%o', caught)
     throw caught
   }
@@ -49,8 +48,7 @@ export const logoutPromise = async () => {
     const logoutResult = await provider.logout({force: true})
     dbg('logout-result=%o', logoutResult)
     return logoutResult
-  }
-  catch (caught) {
+  } catch (caught) {
     dbg('logout-promise: caught=%o', caught)
     throw caught
   }
@@ -82,11 +80,13 @@ export function generateOnEnterHandler(store, opts) {
 
   observe(
     store,
-    (state) => {return _.get(state, 'session.token')},
+    state => {
+      return _.get(state, 'session.token')
+    },
     onTokenChange(opts)
   )
 
-  return (privs) => {
+  return privs => {
     if (_.isString(privs)) {
       privs = [privs]
     }
@@ -111,8 +111,7 @@ export function generateOnEnterHandler(store, opts) {
           // disallow transition
           replace(current)
         }
-      }
-      else {
+      } else {
         dbg('require-auth: login required: login-active=%o', session.active)
         // disallow transition here, successful login should retry transition...
         replace(current)
@@ -126,21 +125,25 @@ export function generateOnEnterHandler(store, opts) {
 
 export default function getAuth(session) {
   return {
-    hasPrivs: (privs) => {
+    hasPrivs: privs => {
       const scope = _.get(session, 'token.decoded.scope')
       if (_.isString(privs)) {
         privs = [privs]
       }
-      const every = _.every(privs, (priv) => {return _.includes(scope, priv)})
+      const every = _.every(privs, priv => {
+        return _.includes(scope, priv)
+      })
       dbg('has-privs: scope=%o, privs=%o, every=%o', scope, privs, every)
       return every
     },
-    hasAnyPrivs: (privs) => {
+    hasAnyPrivs: privs => {
       const scope = _.get(session, 'token.decoded.scope')
       if (_.isString(privs)) {
         privs = [privs]
       }
-      const some = _.some(privs, (priv) => {return _.includes(scope, priv)})
+      const some = _.some(privs, priv => {
+        return _.includes(scope, priv)
+      })
       dbg('has-any-privs: scope=%o, privs=%o, some=%o', scope, privs, some)
       return some
     },

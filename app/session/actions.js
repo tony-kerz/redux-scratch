@@ -1,15 +1,17 @@
 import debug from 'debug'
 import {createAction} from 'redux-actions'
 import {push} from 'react-router-redux'
+import _ from 'lodash'
 import actions from './action-types'
 import {loginPromise, logoutPromise} from './session'
-import _ from 'lodash'
 
 const dbg = debug('app:session:actions')
 
-export const login = (target) => {
+const loginBegin = createAction(actions.LOGIN_BEGIN)
+
+export const login = target => {
   dbg('login: target=%o', target)
-  return (dispatch) => {
+  return dispatch => {
     dbg('login-thunk: target=%o', target)
     const _target = _.isString(target) ? target : null
     dispatch(loginBegin(_target))
@@ -17,22 +19,20 @@ export const login = (target) => {
   }
 }
 
-const loginBegin = createAction(actions.LOGIN_BEGIN)
+const logoutBegin = createAction(actions.LOGOUT_BEGIN)
 
 export const logout = () => {
   dbg('logout')
-  return (dispatch) => {
+  return dispatch => {
     dbg('logout-thunk')
     dispatch(logoutBegin())
     dispatch(createAction(actions.LOGOUT, logoutPromise)())
   }
 }
 
-const logoutBegin = createAction(actions.LOGOUT_BEGIN)
-
-export const pushTarget = (target) => {
+export const pushTarget = target => {
   dbg('push-target: target=%o', target)
-  return (dispatch) => {
+  return dispatch => {
     dispatch(push(target))
     dispatch(createAction(actions.PUSH_TARGET)())
   }

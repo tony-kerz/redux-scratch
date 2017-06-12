@@ -2,20 +2,21 @@ const authBase = 'https://uaa.x.healthagen.com'
 const apiBase = 'https://api.x.healthagen.com'
 const mockBase = 'http://localhost:3000/api'
 
-let urls = {
-  articles: 'http://api.nytimes.com/svc/search/v2/articlesearch.json',
+const urls = {
   oauthAuth: `${authBase}/oauth/authorize`,
   oauthGrant: `${authBase}/oauth/token`,
-  oauthLogout: `${authBase}/logout`,
-  patients: `${apiBase}/patients`
+  oauthLogout: `${authBase}/logout`
 }
 
-if (__DEV__) {
-  urls = {
-    ...urls,
-    articles: `${mockBase}/articles`,
-    patients: `${mockBase}/patients`
-  }
-}
-
-export default urls
+// eslint-disable-next-line no-undef
+export default (__DEV__
+  ? {
+      ...urls,
+      articles: `${mockBase}/articles`,
+      patients: `${mockBase}/patients`
+    }
+  : {
+      ...urls,
+      articles: 'http://api.nytimes.com/svc/search/v2/articlesearch.json',
+      patients: `${apiBase}/patients`
+    })

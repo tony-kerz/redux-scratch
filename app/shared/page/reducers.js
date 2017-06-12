@@ -73,7 +73,7 @@ export default function(resource, query = {}) {
             data,
             active: page.active - 1,
             // check data.length in case service doesn't support total
-            more: (data.length > 0) && (page.total > data.length)
+            more: data.length > 0 && page.total > data.length
           }
         }
       }

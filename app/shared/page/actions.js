@@ -8,7 +8,6 @@ import {getActionType, getPageKey} from './utils'
 const dbg = debug('app:shared:page:actions')
 
 export default function(resource, getPromise, altPageName) {
-
   const pageKey = getPageKey(altPageName || resource)
 
   function getPageState(state) {
@@ -24,10 +23,12 @@ export default function(resource, getPromise, altPageName) {
   }
 
   return {
-    filter: (filter) => {
+    filter: filter => {
       dbg('filter(%o): filter=%o', pageKey, filter)
       return (dispatch, getState) => {
-        filter = _.omit(filter, (s) => { return _.isEmpty(_.trim(s)) })
+        filter = _.omit(filter, s => {
+          return _.isEmpty(_.trim(s))
+        })
         let {query} = getPageState(getState())
         const {sort, limit} = query
         query = {
@@ -54,7 +55,7 @@ export default function(resource, getPromise, altPageName) {
       }
     },
 
-    page: (index) => {
+    page: index => {
       dbg('page(%o): index=%o', pageKey, index)
       return (dispatch, getState) => {
         const {query} = getPageState(getState())

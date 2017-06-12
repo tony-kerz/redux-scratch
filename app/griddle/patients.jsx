@@ -2,8 +2,8 @@ import debug from 'debug'
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import actions from '../patients/actions'
 import _ from 'lodash'
+import actions from '../patients/actions'
 import PatientQueryForm from '../patients/patient-query-form'
 import Griddle from 'griddle-react'
 import DateCol from '../shared/griddle/date'
@@ -62,13 +62,13 @@ const columnMeta = [
 const columns = _.map(columnMeta, 'columnName')
 
 @connect(
-  (state) => {
+  state => {
     dbg('connect: state=%o', state)
     return {
       patients: state.patients
     }
   },
-  (dispatch) => {
+  dispatch => {
     dbg('connect: actions=%o', actions)
     return bindActionCreators(actions, dispatch)
   }
@@ -78,31 +78,29 @@ export default class extends Component {
     dbg('render: props=%o', this.props)
     const {query, data, total, active} = this.props.patients[pageKey]
     const {limit, offset, sort} = query
-    const totalPages = Math.ceil(total/limit)
-    const currentPage = Math.floor(offset/limit)
+    const totalPages = Math.ceil(total / limit)
+    const currentPage = Math.floor(offset / limit)
     dbg('render: totalPages=%o, currentPage=%o', totalPages, currentPage)
 
-    return(
-      <div className='panel panel-default'>
-        <div className='panel-heading'>
-          <h3 className='panel-title'>Patients</h3>
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h3 className="panel-title">Patients</h3>
         </div>
-        <div className='panel-body'>
-          <div className='panel panel-default'>
-            <div className='panel-heading'>
-              <h3 className='panel-title'>Patient Search</h3>
+        <div className="panel-body">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h3 className="panel-title">Patient Search</h3>
             </div>
-            <div className='panel-body'>
-              <PatientQueryForm
-                filterPatients={(filter) => this.props.filter(pageKey, filter)}
-              />
+            <div className="panel-body">
+              <PatientQueryForm filterPatients={filter => this.props.filter(pageKey, filter)} />
             </div>
           </div>
-          { data && (
-            <div className='panel panel-default patients'>
+          {data &&
+            <div className="panel panel-default patients">
               <Griddle
                 useGriddleStyles={false}
-                tableClassName='table table-hover'
+                tableClassName="table table-hover"
                 columns={columns}
                 columnMetadata={columnMeta}
                 useExternal={true}
@@ -118,13 +116,11 @@ export default class extends Component {
                 customPagerComponent={Pager}
                 results={data}
               />
-            { (active > 0) && (
-                <div className='overlay'>
-                  <i className='fa fa-3x fa-circle-o-notch fa-spin'></i>
-                </div>
-              )}
-            </div>
-          )}
+              {active > 0 &&
+                <div className="overlay">
+                  <i className="fa fa-3x fa-circle-o-notch fa-spin" />
+                </div>}
+            </div>}
         </div>
       </div>
     )
@@ -133,12 +129,12 @@ export default class extends Component {
   changeSort = (field, isAscending) => {
     dbg('change-sort: field=%o, is-ascending=%o', field, isAscending)
     this.props.sort(pageKey, field, isAscending)
-  };
+  }
 
-  setPage = (index) => {
+  setPage = index => {
     dbg('set-page: index=%o', index)
     this.props.page(pageKey, index)
-  };
+  }
 
   setFilter(filter) {
     dbg('set-filter: filter=%o', filter)

@@ -2,9 +2,9 @@ import debug from 'debug'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
-//import loggerMiddleware from 'redux-logger'
+// import loggerMiddleware from 'redux-logger'
 import rootReducer from '../reducers'
-//import DevTools from '../dev-tools'
+// import DevTools from '../dev-tools'
 
 const dbg = debug('app:store:dev')
 
@@ -17,8 +17,8 @@ const finalCreateStore = compose(
     //     collapsed: true
     //   }
     // )
-  )//,
-  //DevTools.instrument()
+  )
+  // DevTools.instrument()
 )(createStore)
 
 export default function configureStore(initialState) {

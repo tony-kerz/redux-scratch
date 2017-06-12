@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-undef
 if (__DEV__) {
-  module.exports = require('./router.dev')
+  module.exports = require('./router.dev.jsx')
 } else {
-  module.exports = require('./router.prod')
+  module.exports = require('./router.prod.jsx')
 }

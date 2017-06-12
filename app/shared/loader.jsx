@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
 
-export default class Loader extends Component {
+export default class extends Component {
   render() {
     const active = this.props.isActive ? 'active' : ''
 
-    return(
+    return (
       <div className={`ui dimmer ${active}`}>
-        <div className='ui text loader'>{this.props.text}</div>
+        <div className="ui text loader">{this.props.text}</div>
       </div>
     )
   }
 }
-
-export default Loader

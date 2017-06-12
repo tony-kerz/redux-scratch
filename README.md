@@ -1,5 +1,8 @@
 # redux-scratch
 
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+
 This application is intended to illustrate a non-trivial [React](https://facebook.github.io/react/)
 application in conjunction with the [Redux](http://redux.js.org/) "predictable state container".
 

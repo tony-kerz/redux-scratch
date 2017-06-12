@@ -1,6 +1,6 @@
 export default {
   fake: () => {
-    throw 'fake required'
+    throw new TypeError('fake required')
   },
 
   count: 10,
@@ -9,11 +9,11 @@ export default {
     // no-op
   },
 
-  post: (data) => {
+  post: data => {
     return data
   },
 
-  generate: function() {
+  generate() {
     const data = []
     for (let i = 0; i < this.count; i++) {
       data.push(this.fake())

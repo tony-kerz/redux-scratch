@@ -18,46 +18,34 @@ function validate(values, props) {
   return {}
 }
 
-@reduxForm(
-  {
-    form: 'patientQueryForm',
-    fields: ['firstName', 'lastName', 'sort'],
-    validate//,
-    // onSubmit: (data) => {
-    //   dbg('redux-form: data=%o', data)
-    //   getPatients(data)
-    // }
-  }
-)
+@reduxForm({
+  form: 'patientQueryForm',
+  fields: ['firstName', 'lastName', 'sort'],
+  validate
+  // onSubmit: (data) => {
+  //   dbg('redux-form: data=%o', data)
+  //   getPatients(data)
+  // }
+})
 export default class PatientQueryForm extends Component {
   render() {
     dbg('render: props=%o', this.props)
 
-    const {
-      fields: {
-        firstName,
-        lastName,
-        sort
-      },
-      handleSubmit,
-      resetForm,
-      submitting,
-      filterPatients
-    } = this.props;
+    const {fields: {firstName, lastName, sort}, handleSubmit, resetForm, submitting, filterPatients} = this.props
 
-    return(
+    return (
       <form onSubmit={handleSubmit(filterPatients)}>
-        <div className='form-group'>
-          <label htmlFor='first-name'>first name: </label>
-          <input type='text' className='form-control' id='first-name' placeholder='first name' {...firstName}/>
+        <div className="form-group">
+          <label htmlFor="first-name">first name: </label>
+          <input type="text" className="form-control" id="first-name" placeholder="first name" {...firstName} />
         </div>
-        <div className='form-group'>
-          <label htmlFor='last-name'>last name: </label>
-          <input type='text' className='form-control' id='last-name' placeholder='last name' {...lastName}/>
+        <div className="form-group">
+          <label htmlFor="last-name">last name: </label>
+          <input type="text" className="form-control" id="last-name" placeholder="last name" {...lastName} />
         </div>
-        <div className='form-group'>
-          <label htmlFor='sort'>sort: </label>
-          <input type='text' className='form-control' id='sort' placeholder='sort' {...sort}/>
+        <div className="form-group">
+          <label htmlFor="sort">sort: </label>
+          <input type="text" className="form-control" id="sort" placeholder="sort" {...sort} />
           {/*
           <Select
             name='sort'
@@ -86,10 +74,10 @@ export default class PatientQueryForm extends Component {
           </Select2>
           */}
         </div>
-        <button type='submit' disabled={submitting} className='btn btn-default'>
-          {submitting ? <i className='fa fa-cog fa-spin'/> : <i className='fa fa-paper-plane'/>} Submit
+        <button type="submit" disabled={submitting} className="btn btn-default">
+          {submitting ? <i className="fa fa-cog fa-spin" /> : <i className="fa fa-paper-plane" />} Submit
         </button>
-        <button className='btn btn-default' disabled={submitting} onClick={resetForm}>Clear</button>
+        <button className="btn btn-default" disabled={submitting} onClick={resetForm}>Clear</button>
       </form>
     )
   }

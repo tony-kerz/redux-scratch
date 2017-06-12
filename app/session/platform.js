@@ -1,10 +1,10 @@
 import debug from 'debug'
-import urls from '../api/urls'
 import Hello from 'hellojs/dist/hello'
+import urls from '../api/urls'
 
 const dbg = debug('app:session:platform')
 
-const init = (hello) => {
+const init = hello => {
   hello.init({
     platform: {
       name: 'platform',
@@ -13,41 +13,41 @@ const init = (hello) => {
         auth: urls.oauthAuth,
         grant: urls.oauthGrant
       },
-      login: (p) => {
+      login: p => {
         dbg('login: p=%o', p)
       },
-      logout: (p) => {
+      logout: p => {
         dbg('logout: p=%o', p)
         return urls.oauthLogout
       },
       refresh: true,
       base: urls.apiBase,
       get: {
-        'default': (o, cb) => {
+        default: (o, cb) => {
           dbg('get: o=%o, cb=%o', o, cb)
           return o
         }
       },
       put: {
-        'default': (o, cb) => {
+        default: (o, cb) => {
           dbg('put: o=%o, cb=%o', o, cb)
           return o
         }
       },
       post: {
-        'default': (o, cb) => {
+        default: (o, cb) => {
           dbg('post: o=%o, cb=%o', o, cb)
           return o
         }
       },
       delete: {
-        'default': (o, cb) => {
+        default: (o, cb) => {
           dbg('delete: o=%o, cb=%o', o, cb)
           return o
         }
       },
       wrap: {
-        'default': (o) => {
+        default: o => {
           dbg('wrap: o=%o', o)
           return o
         }

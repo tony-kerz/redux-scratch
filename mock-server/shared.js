@@ -6,16 +6,14 @@ const dbg = debug('app:mock:shared')
 api/patients?offset={offset}&limit={limit}&sort=[-|+]{sort}
 &firstName={firstName}&lastName={lastName}&mrn={mrn}&dob={dob}
 */
-export function sharedPre(req, res) {
+export function sharedPre(req) {
   replace(req.query, 'offset', '_start')
   replace(req.query, 'limit', '_limit')
   let sort = req.query.sort
   if (sort) {
-    if (_.startsWith(sort, '+'))
-    {
+    if (_.startsWith(sort, '+')) {
       sort = sort.substring(1)
-    } else if (_.startsWith(sort, '-'))
-    {
+    } else if (_.startsWith(sort, '-')) {
       sort = sort.substring(1)
       req.query._order = 'DESC'
     }

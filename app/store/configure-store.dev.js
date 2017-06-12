@@ -3,9 +3,9 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise'
 import loggerMiddleware from 'redux-logger'
-import rootReducer from '../reducers'
-import DevTools from '../dev-tools'
 import {routerMiddleware as getRouterMiddleware} from 'react-router-redux'
+import rootReducer from '../reducers'
+import DevTools from '../dev-tools.jsx'
 
 const dbg = debug('app:store:dev')
 
@@ -19,11 +19,9 @@ export default function configureStore(history) {
       thunkMiddleware,
       promiseMiddleware,
       routerMiddleware,
-      loggerMiddleware(
-        {
-          collapsed: true
-        }
-      )
+      loggerMiddleware({
+        collapsed: true
+      })
     ),
     DevTools.instrument()
   )(createStore)

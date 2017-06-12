@@ -14,20 +14,21 @@ module.exports = {
     modules: true,
     jsx: true
   },
-  plugins: [
-    'react'
-  ],
+  plugins: ['react'],
   rules: {
-    'indent': [2, 2],
+    indent: 'off',
     'prefer-const': 2,
     'no-unused-vars': 2,
     quotes: [2, 'single'],
     'eol-last': [0],
     'no-mixed-requires': [0],
     'no-underscore-dangle': [0],
-    'jsx-quotes': [2, 'prefer-single'],
+    // 'jsx-quotes': [2, 'prefer-double'],
     'react/jsx-no-undef': 1,
     'react/jsx-uses-react': 1,
     'react/jsx-uses-vars': 1
+  },
+  settings: {
+    'import/extensions': ['js', 'jsx']
   }
 }
